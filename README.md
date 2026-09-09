@@ -25,6 +25,7 @@ gyik.html             Bővebb GYIK (FAQPage strukturált adattal)
 kisokos.html          Klíma-kisokos – örökzöld magyarázók (FAQPage)
 rolunk.html           Rólunk
 kapcsolat.html        Elérhetőségek + ajánlatkérő űrlap
+aszf.html             Általános Szerződési Feltételek (VÁZLAT – jogi ellenőrzés kell)
 adatkezeles.html      Adatkezelési tájékoztató (VÁZLAT – jogi ellenőrzés kell)
 impresszum.html       Impresszum (hiányzó adatokkal)
 404.html              Hibaoldal
@@ -106,15 +107,21 @@ A kódban `TODO` és a szövegben `⚠︎` jelöli. A legfontosabbak:
       (Cloudflare Turnstile vagy hCaptcha). Addig a JS `mailto:` tartalékkal
       nyit levelet, hogy egy megkeresés se vesszen el.
 - [ ] **Betűk önhosztolása** a Google Fonts CDN helyett (GDPR).
-- [ ] **Adatkezelési tájékoztató és impresszum** kitöltése és jogi ellenőrzése
-      (nyilvántartási szám, tárhelyszolgáltató, megőrzési idő, adatfeldolgozók).
-- [ ] **Facebook és Google Cégem linkek** a láblécben (`data-todo` jelölők).
-- [ ] **Térkép** beágyazása a Kapcsolat és a főoldal „terület" blokkjába
-      (adatvédelmi okból kattintásra betöltő vagy statikus kép + link).
+- [ ] **ÁSZF, Adatkezelési tájékoztató, Impresszum** kitöltése és **jogi
+      ellenőrzése** (nyilvántartási szám, tárhelyszolgáltató, székhelycím,
+      megőrzési idő, adatfeldolgozók; az ÁSZF-ben a jótállás/szavatosság/elállás).
+- [ ] **Google Maps sütikezelés:** a térkép jelenleg az oldal betöltésekor
+      lejön → süti-hozzájárulás (consent) megoldás javasolt, vagy vissza
+      kattintásra betöltőre (a régi `.map-embed` + `data-map` JS még megvan).
+- [ ] **Facebook:** jelenleg személyes profil (`facebook.com/csaba.tamba`);
+      céges oldal létrehozása után a link cseréje (lábléc, Kapcsolat, `sameAs`).
+- [ ] **Google Cégem:** a láblécben most keresési link; cseréld a Google
+      Cégem „profil megosztása" linkre / place ID-re.
 - [ ] **Analitika:** süti nélküli megoldás (Plausible / Umami) + Search Console.
-- [ ] **OG-kép:** jelenleg a `tuz-jeg-arculat.jpg`; igény esetén dedikált 1200×630 kép.
+- [ ] **Betűk önhosztolása** a Google Fonts CDN helyett (GDPR).
+- [ ] **Vélemények szekció** a főoldalra + 2-3 valódi értékelés (opcionális).
 - [ ] **Nyitott üzleti kérdések** a `brief` 10. pontja szerint (megszólítás,
-      részletfizetés, településlista, kazettás klíma felára, sürgősségi díj…).
+      pontos településlista, kazettás klíma felára, sürgősségi díj…).
 
 ## Chatbot (későbbi bővítés)
 

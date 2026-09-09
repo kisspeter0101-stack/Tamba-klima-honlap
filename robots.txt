@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /aszf.html
 Disallow: /adatkezeles.html
 Disallow: /impresszum.html
 

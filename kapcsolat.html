@@ -94,17 +94,12 @@
           </li>
         </ul>
 
-        <div class="map-embed mt-3" data-map
-             data-map-src="https://www.google.com/maps?q=Ny%C3%ADregyh%C3%A1za&amp;z=12&amp;output=embed"
-             data-map-label="Nyíregyháza a Google Térképen">
-          <div class="map-embed__cover">
-            <svg class="map-embed__pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <p class="map-embed__title">Nyíregyháza</p>
-            <button class="btn btn--light" type="button" data-map-load>Térkép megnyitása</button>
-            <p class="map-embed__note">A gomb megnyomásával a Google Térkép is betöltődik.</p>
-            <a class="map-embed__link" href="https://www.google.com/maps/place/Ny%C3%ADregyh%C3%A1za" target="_blank" rel="noopener">Megnyitás új lapon</a>
-          </div>
+        <div class="map-embed mt-3">
+          <iframe src="https://www.google.com/maps?q=Ny%C3%ADregyh%C3%A1za&amp;z=12&amp;output=embed"
+                  title="Nyíregyháza a Google Térképen" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         </div>
+        <p class="map-embed__note"><a href="https://www.google.com/maps/place/Ny%C3%ADregyh%C3%A1za" target="_blank" rel="noopener">Megnyitás a Google Térképen</a></p>
       </div>
 
       <div>
@@ -146,7 +141,7 @@
             <label for="hozzajarulas">Hozzájárulok, hogy a Támba Klíma a megadott adataimat a megkeresésem megválaszolásához kezelje. <a href="adatkezeles.html">Adatkezelési tájékoztató</a>. <span class="req" aria-hidden="true">*</span></label>
           </div>
           <button class="btn btn--lg btn--block" type="submit">Ajánlatkérés elküldése</button>
-          <p class="form-note">Vagy hívjon most: <a href="tel:+36205422171">06 20 542 2171</a>. Munkaidőben jellemzően még aznap visszahívjuk.</p>
+          <p class="form-note">Vagy hívjon most: <a href="tel:+36205422171">06 20 542 2171</a>. Munkaidőben jellemzően még aznap visszahívjuk. Az ajánlatkérés nem megrendelés; a szolgáltatás feltételei az <a href="aszf.html">ÁSZF</a>-ben.</p>
           <div class="form-status" role="status" aria-live="polite"></div>
         </form>
       </div>
@@ -184,7 +179,7 @@
     </div>
     <div class="footer-bottom">
       <span>© <span data-year>2026</span> Támba Csaba e.v. · Adószám: 91028273-1-35</span>
-      <span><a href="adatkezeles.html">Adatkezelési tájékoztató</a> &nbsp;·&nbsp; <a href="impresszum.html">Impresszum</a></span>
+      <span><a href="aszf.html">ÁSZF</a> &nbsp;·&nbsp; <a href="adatkezeles.html">Adatkezelési tájékoztató</a> &nbsp;·&nbsp; <a href="impresszum.html">Impresszum</a></span>
     </div>
   </div>
 </footer>
