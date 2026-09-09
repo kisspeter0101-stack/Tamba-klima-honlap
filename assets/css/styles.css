@@ -462,6 +462,15 @@ p + p { margin-top: 0.85rem; }
   padding: .55rem 1rem; border-radius: 999px;
   background: var(--surface); border: 1px solid var(--line); color: var(--ink-soft);
 }
+.brands .brands__primary {
+  display: inline-flex; align-items: center; gap: .55rem;
+  background-image: var(--grad-cta); color: #fff; border-color: transparent;
+}
+.brands .brands__primary em {
+  font-style: normal; font-size: .68rem; font-weight: 700; letter-spacing: .6px;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, .25); padding: .14rem .5rem; border-radius: 999px;
+}
 
 /* ---------- Szolgáltatási terület ---------- */
 .area-wrap { display: grid; gap: 1.4rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); align-items: center; }
