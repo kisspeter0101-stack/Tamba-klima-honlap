@@ -1,0 +1,12 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.idea/
+.vscode/
+
+# függőségek / build (ha később Node-alapú lesz)
+node_modules/
+dist/
+.cache/

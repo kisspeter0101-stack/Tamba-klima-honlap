@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /adatkezeles.html
+Disallow: /impresszum.html
+
+Sitemap: https://tambaklima.hu/sitemap.xml
