@@ -452,7 +452,7 @@ korlátozott mértékben tudunk segíteni. ⚠︎ (megjelenítés egyeztetendő)
 - **E-mail:** tambaklima25@gmail.com ⚠︎ *(javasolt: `info@tambaklima.hu` a
   domainhez)*
 - **Messenger / Facebook:** ⚠︎ pontos link bekérendő
-- **Cím / székhely:** 4405 Nyíregyháza, Kökény utca 61.
+- **Cím / székhely:** Nyíregyháza, Borbánya (a pontos cím nem publikus – a megrendelő kérése)
 - **Nyitvatartás:** minden nap 6:00–20:00
 - **Szolgáltatási terület:** Nyíregyháza és 50 km-es körzete
 - Térkép (beágyazott, adatvédelmi szempontból kattintásra töltődő / statikus kép + link).
@@ -466,7 +466,7 @@ korlátozott mértékben tudunk segíteni. ⚠︎ (megjelenítés egyeztetendő)
 Teljes ÁSZF nem szükséges (nincs online fizetés vagy szerződéskötés), de az
 űrlap és a chatbot miatt **adatkezelési tájékoztató kell**. Tartalmi elemek:
 
-- **Adatkezelő:** Támba Csaba e.v., székhely: 4405 Nyíregyháza, Kökény utca 61.,
+- **Adatkezelő:** Támba Csaba e.v., székhely: Nyíregyháza, Borbánya (a pontos cím nem publikus – a megrendelő kérése),
   adószám: 91028273-1-35, nyilvántartási szám: ⚠︎, e-mail: ⚠︎, telefon: 06 20 542 2171.
 - **Kezelt adatok:**
   - *Ajánlatkérő űrlap:* név, telefonszám, e-mail, település, üzenet,
@@ -653,7 +653,7 @@ külön moderálva. A v1-ben nincs nyilvános látogatói feltöltés.)*
 |---|---|
 | Márkanév | Támba Klíma |
 | Cégforma | Támba Csaba egyéni vállalkozó |
-| Székhely / telephely | 4405 Nyíregyháza, Kökény utca 61. |
+| Székhely / telephely | Nyíregyháza, Borbánya (a pontos cím nem publikus – a megrendelő kérése) |
 | Adószám | 91028273-1-35 |
 | Egyéni váll. nyilvántartási szám | ⚠︎ hiányzik (impresszumhoz kell) |
 | Alapítás éve | 2025 |
