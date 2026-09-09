@@ -148,6 +148,26 @@
     });
   }
 
+  /* ---------- Térkép: kattintásra betöltő Google Térkép ----------
+     Adatvédelmi okból a Google Térkép csak a látogató kattintására töltődik be.
+  --------------------------------------------------------------- */
+  document.querySelectorAll("[data-map]").forEach(function (box) {
+    var btn = box.querySelector("[data-map-load]");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var src = box.getAttribute("data-map-src");
+      if (!src) return;
+      var f = document.createElement("iframe");
+      f.src = src;
+      f.title = box.getAttribute("data-map-label") || "Térkép";
+      f.loading = "lazy";
+      f.referrerPolicy = "no-referrer-when-downgrade";
+      f.setAttribute("allowfullscreen", "");
+      box.innerHTML = "";
+      box.appendChild(f);
+    });
+  });
+
   /* ---------- Chatbot helyőrző ----------
      TODO (élesítés): ide kerül a valódi chat-widget beillesztő scriptje.
      A tudásbázis a brief/Tamba_Klima_honlap_tervezet.md GYIK + Árak + Szolgáltatások része.

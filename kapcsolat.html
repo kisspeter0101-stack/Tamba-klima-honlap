@@ -89,10 +89,17 @@
           </li>
         </ul>
 
-        <div class="area-map mt-3" role="img" aria-label="Térkép helye – Nyíregyháza, Kökény utca 61.">
-          <span>Térkép helye — Nyíregyháza, Kökény utca 61.</span>
+        <div class="map-embed mt-3" data-map
+             data-map-src="https://www.google.com/maps?q=Ny%C3%ADregyh%C3%A1za&amp;z=12&amp;output=embed"
+             data-map-label="Nyíregyháza a Google Térképen">
+          <div class="map-embed__cover">
+            <svg class="map-embed__pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <p class="map-embed__title">Nyíregyháza</p>
+            <button class="btn btn--light" type="button" data-map-load>Térkép megnyitása</button>
+            <p class="map-embed__note">A gomb megnyomásával a Google Térkép is betöltődik.</p>
+            <a class="map-embed__link" href="https://www.google.com/maps/place/Ny%C3%ADregyh%C3%A1za" target="_blank" rel="noopener">Megnyitás új lapon</a>
+          </div>
         </div>
-        <!-- TODO: ide beágyazott térkép kerül (adatvédelmi okból kattintásra betöltő vagy statikus kép + link). -->
       </div>
 
       <div>
