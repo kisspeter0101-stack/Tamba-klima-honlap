@@ -10,3 +10,6 @@ desktop.ini
 node_modules/
 dist/
 .cache/
+
+# Megrendelői munkapéldányok (a forrásanyag a brief/ mappában van verziózva)
+Dokumentumok/
