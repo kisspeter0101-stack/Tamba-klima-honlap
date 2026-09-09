@@ -148,6 +148,45 @@
     });
   }
 
+  /* ---------- GYIK / Kisokos kereső ----------
+     Ékezet-érzéketlen szűrés a kérdés + válasz szövegében.
+  --------------------------------------------------------------- */
+  var faqInput = document.getElementById("faq-q");
+  if (faqInput) {
+    var norm = function (s) {
+      return (s || "")
+        .toLowerCase()
+        .replace(/[áàâ]/g, "a").replace(/[éè]/g, "e").replace(/[íì]/g, "i")
+        .replace(/[óòöő]/g, "o").replace(/[úùüű]/g, "u")
+        .replace(/\s+/g, " ")
+        .trim();
+    };
+    var faqItems = Array.prototype.slice.call(document.querySelectorAll(".faq"));
+    var faqGroups = Array.prototype.slice.call(document.querySelectorAll(".faq-group"));
+    var noResult = document.querySelector("[data-faq-noresult]");
+    var noResultTerm = noResult ? noResult.querySelector("[data-term]") : null;
+
+    faqInput.addEventListener("input", function () {
+      var q = norm(faqInput.value);
+      var hits = 0;
+      faqItems.forEach(function (item) {
+        var match = q === "" || norm(item.textContent).indexOf(q) !== -1;
+        item.hidden = !match;
+        item.open = q !== "" && match;
+        if (q !== "" && match) hits++;
+      });
+      faqGroups.forEach(function (group) {
+        var anyVisible = group.querySelector(".faq:not([hidden])");
+        group.hidden = q !== "" && !anyVisible;
+      });
+      if (noResult) {
+        var show = q !== "" && hits === 0;
+        noResult.hidden = !show;
+        if (show && noResultTerm) noResultTerm.textContent = faqInput.value.trim();
+      }
+    });
+  }
+
   /* ---------- Térkép: kattintásra betöltő Google Térkép ----------
      Adatvédelmi okból a Google Térkép csak a látogató kattintására töltődik be.
   --------------------------------------------------------------- */
