@@ -257,6 +257,31 @@ p + p { margin-top: 0.85rem; }
   padding-block: clamp(3rem, 9vw, 6.5rem);
   max-width: 44rem;
 }
+
+/* Hero: valódi arculati tábla + szöveg egymás mellett (szöveg SOHA a képen) */
+.hero__grid {
+  display: grid; gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: center;
+  padding-block: clamp(2.25rem, 6vw, 4.5rem);
+}
+@media (min-width: 900px) {
+  .hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
+}
+.hero__sign { margin: 0; display: flex; flex-direction: column; gap: .55rem; }
+.hero__sign img {
+  width: 100%; height: auto; border-radius: 12px;
+  border: 5px solid rgba(255, 255, 255, .92);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, .45);
+}
+@media (min-width: 900px) {
+  .hero__sign img { transform: rotate(-1.6deg); }
+}
+.hero__sign figcaption {
+  text-align: center; font-size: .84rem; color: #dbeaf6;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .4);
+}
+.hero__copy { max-width: 44rem; display: grid; gap: 1.25rem; }
+.hero__copy .trust { margin-top: .2rem; }
 .hero h1 { color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,.35); }
 .hero h1 .cold { color: #cdeeff; }
 .hero h1 .warm { color: #ffd9a8; }
@@ -495,6 +520,11 @@ p + p { margin-top: 0.85rem; }
 .footer-bottom { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,.14); font-size: .84rem; color: #9fc0d8; display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; justify-content: space-between; }
 .site-footer .brand__text .cold { color: #8fd8ff; }
 .site-footer .brand__text .warm { color: #ffb98a; }
+.footer-sign {
+  width: 100%; max-width: 320px; height: auto;
+  border-radius: 10px; border: 3px solid rgba(255, 255, 255, .9);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .35);
+}
 
 /* ---------- Chatbot helyőrző ---------- */
 .chat-fab {
