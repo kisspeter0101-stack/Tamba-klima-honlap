@@ -189,7 +189,7 @@ p + p { margin-top: 0.85rem; }
   padding: .55rem .7rem; border-radius: 8px;
 }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--cold-900); background: var(--cold-100); }
-@media (min-width: 901px) { .nav .phone-btn { display: none; } }
+@media (min-width: 1025px) { .nav .phone-btn { display: none; } }
 
 .header-cta { display: inline-flex; align-items: center; gap: .5rem; }
 .phone-btn {
@@ -208,7 +208,7 @@ p + p { margin-top: 0.85rem; }
 }
 .nav-toggle svg { width: 22px; height: 22px; }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .nav-toggle { display: inline-flex; }
   .nav {
     position: fixed; inset: var(--header-h) 0 auto 0;

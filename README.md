@@ -22,6 +22,7 @@ szolgaltatasok.html   Szolgáltatások
 arak.html             Árlista
 referenciak.html      Galéria (szűrő + lightbox)
 gyik.html             Bővebb GYIK (FAQPage strukturált adattal)
+kisokos.html          Klíma-kisokos – örökzöld magyarázók (FAQPage)
 rolunk.html           Rólunk
 kapcsolat.html        Elérhetőségek + ajánlatkérő űrlap
 adatkezeles.html      Adatkezelési tájékoztató (VÁZLAT – jogi ellenőrzés kell)
