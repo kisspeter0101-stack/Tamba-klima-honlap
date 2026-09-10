@@ -4,5 +4,17 @@
     "alt": "Vivax M Pro klíma – fő fűtésre is alkalmas – alap szereléssel 240 000 Ft",
     "link": "kapcsolat.html",
     "gomb": "Kérek ajánlatot"
+  },
+  {
+    "kep": "assets/img/akcio/midea-solunar.jpg",
+    "alt": "Midea Solunar klíma, 3,5 kW – alapszereléssel 290 000 Ft; klíma tisztítás 15 000 Ft",
+    "link": "kapcsolat.html",
+    "gomb": "Kérek ajánlatot"
+  },
+  {
+    "kep": "assets/img/akcio/tcl-elite.jpg",
+    "alt": "TCL Elite klíma, 3,4 kW – alapszereléssel (3 m csőhosszig) 240 000 Ft",
+    "link": "kapcsolat.html",
+    "gomb": "Kérek ajánlatot"
   }
 ]

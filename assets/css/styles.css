@@ -469,8 +469,9 @@ p + p { margin-top: 0.85rem; }
 /* ---------- Akciók ---------- */
 .promo-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(1rem, 2.5vw, 1.5rem); }
 .promo {
-  flex: 1 1 280px; max-width: 460px;
-  display: block; border-radius: var(--radius); overflow: hidden;
+  flex: 1 1 280px; max-width: 400px;
+  display: flex; flex-direction: column;
+  border-radius: var(--radius); overflow: hidden;
   border: 1px solid var(--line); background: var(--surface);
   box-shadow: var(--shadow-sm); text-decoration: none; color: inherit;
   transition: transform .15s ease, box-shadow .15s ease;
@@ -478,6 +479,7 @@ p + p { margin-top: 0.85rem; }
 .promo:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); color: inherit; }
 .promo img { display: block; width: 100%; height: auto; }
 .promo__cta {
+  margin-top: auto;
   display: flex; align-items: center; justify-content: space-between; gap: .5rem;
   padding: .8rem 1rem; font-family: var(--font-display); font-weight: 700; font-size: .95rem;
   color: var(--cold-700);
