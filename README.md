@@ -129,6 +129,32 @@ A kódban `TODO` és a szövegben `⚠︎` jelöli. A legfontosabbak:
 - [ ] **Nyitott üzleti kérdések** a `brief` 10. pontja szerint (megszólítás,
       pontos településlista, kazettás klíma felára, sürgősségi díj…).
 
+## Aktuális akciók frissítése
+
+A főoldali „Aktuális ajánlatok" szekció az [`assets/data/akciok.json`](assets/data/akciok.json)
+fájlból tölti fel magát (legfeljebb 3 kártya, a lista elején a legújabb).
+Nincs admin felület – a szerkesztés egy fájl + kép + `git push`.
+
+**Új akció felvétele:**
+
+1. A Facebook-poszt grafikáját méretezd át kb. 1080×1080 px-re, JPEG q82
+   (a `scratchpad/resize.ps1` mintájára), és tedd ide: `assets/img/akcio/`.
+2. Vegyél fel egy objektumot a `akciok.json` tömb **elejére**:
+   ```json
+   { "kep": "assets/img/akcio/vivax-m-pro.jpg",
+     "alt": "Vivax M Pro klíma alap szereléssel 240 000 Ft-ért",
+     "link": "kapcsolat.html", "gomb": "Kérek ajánlatot" }
+   ```
+   A `link` mutathat a Facebook-posztra is (akkor új lapon nyílik).
+3. `git add -A && git commit -m "Akció: …" && git push`
+
+**Akció levétele:** töröld az objektumot a JSON-ból. Ha a tömb üres (`[]`),
+a szekció automatikusan a „Jelenleg nincs kiemelt akciónk…" szöveget mutatja
+a Facebook-linkkel.
+
+Élesítés előtt: vagy tegyél be egy valódi akciót, vagy ürítsd a fájlt `[]`-re
+(most egy placeholder kép van benne, hogy látszódjon az elrendezés).
+
 ## Chatbot (későbbi bővítés)
 
 Az oldal előkészített: a jobb alsó lebegő gomb egy helyőrző panelt nyit.

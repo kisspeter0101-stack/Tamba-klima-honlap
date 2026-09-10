@@ -152,6 +152,44 @@
     });
   }
 
+  /* ---------- Aktuális akciók ----------
+     Az akciók az assets/data/akciok.json fájlból jönnek (soronként egy kép).
+     Üres tömb vagy hiba esetén a szekció a "nincs akció" szöveget mutatja.
+  --------------------------------------------------------------- */
+  var promoWrap = document.querySelector("[data-promos]");
+  if (promoWrap) {
+    var promoGrid = promoWrap.querySelector("[data-promo-grid]");
+    var promoEmpty = promoWrap.querySelector("[data-promo-empty]");
+    fetch("assets/data/akciok.json", { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (list) {
+        if (!Array.isArray(list)) list = [];
+        list = list.slice(0, 3);
+        if (!list.length) return;
+        promoGrid.innerHTML = "";
+        list.forEach(function (a) {
+          if (!a || !a.kep) return;
+          var link = document.createElement("a");
+          link.className = "promo";
+          link.href = a.link || "kapcsolat.html";
+          if (/^https?:/.test(link.href)) { link.target = "_blank"; link.rel = "noopener"; }
+          var img = document.createElement("img");
+          img.src = a.kep;
+          img.alt = a.alt || "Aktuális akció";
+          img.loading = "lazy";
+          link.appendChild(img);
+          var cta = document.createElement("span");
+          cta.className = "promo__cta";
+          cta.innerHTML = "<span>" + (a.gomb || "Kérek ajánlatot") + "</span><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>";
+          link.appendChild(cta);
+          promoGrid.appendChild(link);
+        });
+        promoGrid.hidden = false;
+        if (promoEmpty) promoEmpty.hidden = true;
+      })
+      .catch(function () { /* marad a "nincs akció" állapot */ });
+  }
+
   /* ---------- GYIK / Kisokos kereső ----------
      Ékezet-érzéketlen szűrés a kérdés + válasz szövegében.
   --------------------------------------------------------------- */
