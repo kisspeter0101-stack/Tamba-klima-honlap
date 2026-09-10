@@ -467,6 +467,8 @@ p + p { margin-top: 0.85rem; }
 .faq__body { padding: 0 1.15rem 1.15rem; color: var(--ink-soft); }
 
 /* ---------- Akciók ---------- */
+section[data-promos] { padding-bottom: clamp(1rem, 2.5vw, 1.5rem); }
+section[data-promos] + #szolgaltatasok { padding-top: clamp(2rem, 5vw, 3rem); }
 .promo-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(1rem, 2.5vw, 1.5rem); }
 .promo {
   flex: 1 1 280px; max-width: 400px;
