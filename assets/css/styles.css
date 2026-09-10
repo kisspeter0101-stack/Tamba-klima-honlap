@@ -387,6 +387,21 @@ p + p { margin-top: 0.85rem; }
   background: var(--grad-cta); color: #fff; font-family: var(--font-display); font-weight: 700;
 }
 
+/* Mobilon: az árlista sorai blokká állnak, hogy vízszintes görgetés nélkül
+   lássék az ár is (a szűk oszlop miatt korábban jobbra kellett húzni). */
+@media (max-width: 560px) {
+  .price-table-wrap { overflow-x: visible; }
+  .price-table { min-width: 0; }
+  .price-table thead { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+  .price-table tr { display: block; padding: .85rem 1.1rem; border-bottom: 1px solid var(--line); }
+  .price-table tbody tr:last-child { border-bottom: 0; }
+  .price-table td { display: block; padding: 0; border: 0; }
+  .price-table td:first-child { font-weight: 500; }
+  .price-table td:last-child,
+  .price-table th:last-child { text-align: left; white-space: normal; margin-top: .15rem; }
+  .price-table .amount { font-size: 1.05rem; }
+}
+
 /* Ár-kártyák (mobil / kiemelt) */
 .price-cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 .price-card {
