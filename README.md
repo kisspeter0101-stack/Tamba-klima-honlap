@@ -24,7 +24,8 @@ referenciak.html      Galéria (szűrő + lightbox)
 gyik.html             Bővebb GYIK (FAQPage strukturált adattal)
 kisokos.html          Klíma-kisokos – örökzöld magyarázók (FAQPage)
 rolunk.html           Rólunk
-kapcsolat.html        Elérhetőségek + ajánlatkérő űrlap
+kapcsolat.html        Elérhetőségek + ajánlatkérő űrlap (FormSubmit.co)
+koszonjuk.html        Köszönőoldal az űrlap elküldése után
 aszf.html             Általános Szerződési Feltételek (VÁZLAT – jogi ellenőrzés kell)
 adatkezeles.html      Adatkezelési tájékoztató (VÁZLAT – jogi ellenőrzés kell)
 impresszum.html       Impresszum (hiányzó adatokkal)
@@ -101,11 +102,16 @@ A kódban `TODO` és a szövegben `⚠︎` jelöli. A legfontosabbak:
 
 - [ ] **Valódi tartalom:** min. 30 referenciafotó (a `ref-placeholder.svg` helyére),
       csapatfotó, a fóliázott autó fotója.
-- [ ] **Ajánlatkérő űrlap bekötése** (`kapcsolat.html` / `assets/js/main.js`):
-      állítsd be a `form action` végpontot – saját serverless `/api`, vagy
-      Formspree / Web3Forms / Netlify Forms – és tegyél mellé spamvédelmet
-      (Cloudflare Turnstile vagy hCaptcha). Addig a JS `mailto:` tartalékkal
-      nyit levelet, hogy egy megkeresés se vesszen el.
+- [ ] **Ajánlatkérő űrlap aktiválása** (`kapcsolat.html`): az űrlap a
+      **FormSubmit.co**-ra POST-ol (`action="https://formsubmit.co/tambaklima25@gmail.com"`).
+      Az **első** beküldés után a FormSubmit egy aktiváló e-mailt küld erre a
+      címre – a benne lévő linket egyszer meg kell nyitni, utána minden űrlap
+      e-mailben megérkezik. Aktiválás után a cím lecserélhető a FormSubmit
+      által adott véletlen aliasra (adatvédelem). A `_next` rejtett mezőt
+      írd át a tényleges élő címre, ha nem `tambaklima.hu`. Spam esetén a
+      `_captcha` értéke `true`, vagy tegyél elé Cloudflare Turnstile-t.
+      Nagy fotófeltöltésnél a FormSubmit-nak méretkorlátja van – a JS 8 MB
+      felett figyelmeztet.
 - [ ] **Betűk önhosztolása** a Google Fonts CDN helyett (GDPR).
 - [ ] **ÁSZF, Adatkezelési tájékoztató, Impresszum** kitöltése és **jogi
       ellenőrzése** (nyilvántartási szám, tárhelyszolgáltató, székhelycím,

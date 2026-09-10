@@ -3,5 +3,6 @@ Allow: /
 Disallow: /aszf.html
 Disallow: /adatkezeles.html
 Disallow: /impresszum.html
+Disallow: /koszonjuk.html
 
 Sitemap: https://tambaklima.hu/sitemap.xml

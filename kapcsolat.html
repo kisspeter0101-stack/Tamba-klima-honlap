@@ -58,7 +58,7 @@
     <div class="container">
       <p class="breadcrumb"><a href="index.html">Főoldal</a> / Kapcsolat</p>
       <h1>Kapcsolat és ajánlatkérés</h1>
-      <p>A leggyorsabb, ha telefonon keres – munkaidőben jellemzően még aznap visszahívjuk. Este vagy nem érünk rá? Írjon az űrlapon, és jelentkezünk.</p>
+      <p>A leggyorsabb, ha telefonon keres – munkaidőben jellemzően még aznap visszahívjuk. Ha most nem alkalmas, írjon az űrlapon: nyugodtan, kötetlenül, akkor is, ha még csak tájékozódik.</p>
     </div>
   </section>
 
@@ -104,11 +104,22 @@
 
       <div>
         <h2>Ajánlatkérés</h2>
-        <form class="form-card mt-3" data-quote-form data-mailto="tambaklima25@gmail.com" novalidate
-              action="https://formspree.io/f/PLACEHOLDER" method="POST">
-          <!-- TODO (élesítés): állítsd be a valódi action végpontot (saját /api, Formspree, Web3Forms, Netlify Forms)
-               és tegyél mellé spamvédelmet (Cloudflare Turnstile / hCaptcha).
-               A jelenlegi JS a küldést elfogja és mailto tartalékkal nyit levelet. -->
+        <p style="color:var(--muted);margin-bottom:1rem">Nem kell értenie a szakmai részletekhez – írja le pár mondatban, mire lenne szüksége, a többit a felmérésen átbeszéljük.</p>
+        <form class="form-card" data-quote-form novalidate
+              action="https://formsubmit.co/tambaklima25@gmail.com" method="POST" enctype="multipart/form-data">
+          <!-- ŰRLAP → E-MAIL (FormSubmit.co, backend nélkül):
+               1) Az ELSŐ elküldés után a FormSubmit egy aktiváló e-mailt küld Csabának
+                  (tambaklima25@gmail.com) – abban a linket egyszer meg kell nyitni.
+                  Utána minden beküldött űrlap e-mailben megérkezik.
+               2) Adatvédelem: aktiválás után a fenti e-mail-cím lecserélhető a
+                  FormSubmit által adott véletlen aliasra (formsubmit.co/xxxxxxxx).
+               3) A "_next" mezőt írd át a tényleges élő címre, ha nem tambaklima.hu.
+               4) Ha spam jönne, kapcsold be a captchát: _captcha értéke "true". -->
+          <input type="hidden" name="_subject" value="Új ajánlatkérés – tambaklima.hu">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://tambaklima.hu/koszonjuk.html">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
           <div class="field">
             <label for="nev">Név <span class="req" aria-hidden="true">*</span></label>
             <input id="nev" name="nev" type="text" autocomplete="name" required>
@@ -134,15 +145,15 @@
           <div class="field">
             <label for="fotok">Fotó feltöltése (opcionális)</label>
             <input id="fotok" name="fotok" type="file" accept="image/*" multiple>
-            <p class="form-note">A helyiségről / meglévő klímáról készült kép segíti a felmérést.</p>
+            <p class="form-note">A helyiségről vagy a meglévő klímáról készült kép segíti a felmérést. 1–2 kisebb kép ideális; a nagyobbakat inkább Messengeren küldje.</p>
           </div>
           <div class="field field--check">
             <input id="hozzajarulas" name="hozzajarulas" type="checkbox" required>
             <label for="hozzajarulas">Hozzájárulok, hogy a Támba Klíma a megadott adataimat a megkeresésem megválaszolásához kezelje. <a href="adatkezeles.html">Adatkezelési tájékoztató</a>. <span class="req" aria-hidden="true">*</span></label>
           </div>
           <button class="btn btn--lg btn--block" type="submit">Ajánlatkérés elküldése</button>
-          <p class="form-note">Vagy hívjon most: <a href="tel:+36205422171">06 20 542 2171</a>. Munkaidőben jellemzően még aznap visszahívjuk. Az ajánlatkérés nem megrendelés; a szolgáltatás feltételei az <a href="aszf.html">ÁSZF</a>-ben.</p>
           <div class="form-status" role="status" aria-live="polite"></div>
+          <p class="form-note">Elküldés után e-mailben megkapjuk a megkeresését, és munkaidőben jellemzően még aznap visszahívjuk. Inkább telefonálna? <a href="tel:+36205422171">06 20 542 2171</a>. Az ajánlatkérés nem megrendelés; a szolgáltatás feltételei az <a href="aszf.html">ÁSZF</a>-ben.</p>
         </form>
       </div>
 

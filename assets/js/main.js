@@ -106,45 +106,49 @@
   }
 
   /* ---------- Ajánlatkérő űrlap ----------
-     TODO (élesítés): kösd be egy backendre / szolgáltatásra:
-       - saját serverless végpont (pl. /api/ajanlat) + e-mail (Resend/Postmark)
-       - vagy Formspree / Web3Forms / Netlify Forms
-     + spamvédelem: Cloudflare Turnstile vagy hCaptcha
-     Addig: helyi visszajelzés + mailto tartalék, hogy a látogató ne vesszen el.
+     Az űrlap natívan a FormSubmit.co végpontra POST-ol (lásd kapcsolat.html).
+     Itt csak: kliensoldali ellenőrzés, mézesbödön (honeypot), képméret-korlát,
+     és dupla küldés elleni gombtiltás. A tényleges küldést a böngésző végzi.
   --------------------------------------------------------------- */
   var form = document.querySelector("form[data-quote-form]");
   if (form) {
     var status = form.querySelector(".form-status");
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var MAX_UPLOAD = 8 * 1024 * 1024; // ~8 MB összes kép
+
+    var showErr = function (msg) {
+      if (!status) { alert(msg); return; }
+      status.className = "form-status is-err";
+      status.textContent = msg;
+    };
+
     form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (!form.reportValidity()) return;
-      var data = new FormData(form);
-      var nev = (data.get("nev") || "").toString().trim();
-      var tel = (data.get("telefon") || "").toString().trim();
-      var email = (data.get("email") || "").toString().trim();
-      var telepules = (data.get("telepules") || "").toString().trim();
-      var uzenet = (data.get("uzenet") || "").toString().trim();
+      // Honeypot: ha a rejtett mező ki van töltve, bot -> csendben eldobjuk
+      var honey = form.querySelector('[name="_honey"]');
+      if (honey && honey.value) { e.preventDefault(); return; }
 
-      var to = form.getAttribute("data-mailto") || "tambaklima25@gmail.com";
-      var subject = "Ajánlatkérés a weboldalról – " + (nev || "névtelen");
-      var body =
-        "Név: " + nev + "\n" +
-        "Telefon: " + tel + "\n" +
-        "E-mail: " + email + "\n" +
-        "Település: " + telepules + "\n\n" +
-        "Üzenet:\n" + uzenet + "\n";
-      var href =
-        "mailto:" + to +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
+      if (!form.reportValidity()) { e.preventDefault(); return; }
 
+      var files = form.querySelector('input[type="file"]');
+      if (files && files.files && files.files.length) {
+        var total = 0;
+        for (var i = 0; i < files.files.length; i++) total += files.files[i].size;
+        if (total > MAX_UPLOAD) {
+          e.preventDefault();
+          showErr("A csatolt képek túl nagyok. Kérjük, küldjön kevesebb vagy kisebb képet, a többit pedig Messengeren – vagy hagyja el a fotókat, és a felmérésen megnézzük.");
+          return;
+        }
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Küldés…";
+      }
       if (status) {
         status.className = "form-status is-ok";
-        status.textContent =
-          "Köszönjük! Megnyitjuk a levelezőt a kész üzenettel – küldje el, és hamarosan visszahívjuk. Sürgős esetben hívjon: 06 20 542 2171.";
+        status.textContent = "Küldés folyamatban…";
       }
-      window.location.href = href;
-      form.reset();
+      // innen a natív beküldés fut, és a FormSubmit a köszönőoldalra irányít
     });
   }
 
