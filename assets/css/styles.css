@@ -413,22 +413,6 @@ p + p { margin-top: 0.85rem; }
 .price-card .v { font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; color: var(--cold-900); margin-top: .2rem; }
 .price-card .v small { font-size: .8rem; color: var(--muted); font-weight: 600; }
 
-/* ---------- Előtte / utána (karbantartás) ---------- */
-.before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; max-width: 760px; margin-inline: auto; }
-.before-after figure { margin: 0; position: relative; }
-.before-after img {
-  display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
-  border-radius: var(--radius); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
-}
-.before-after figcaption {
-  position: absolute; top: .7rem; left: .7rem;
-  font-family: var(--font-display); font-weight: 800; font-size: .8rem; letter-spacing: .3px;
-  padding: .3rem .8rem; border-radius: 999px; color: #fff; text-transform: uppercase;
-  background: var(--cold-700);
-}
-.before-after figure:last-child figcaption { background-image: var(--grad-cta); }
-@media (max-width: 560px) { .before-after { grid-template-columns: 1fr; max-width: 420px; } }
-
 /* ---------- Rólunk – 3 fotó egy sorban (mindig egyenlő oszlop) ---------- */
 .photo-trio { display: grid; gap: clamp(1rem, 2.5vw, 1.5rem); grid-template-columns: 1fr; }
 @media (min-width: 620px) { .photo-trio { grid-template-columns: repeat(3, 1fr); } }
