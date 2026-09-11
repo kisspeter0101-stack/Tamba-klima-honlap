@@ -531,6 +531,15 @@ section[data-promos] + #szolgaltatasok { padding-top: clamp(2rem, 5vw, 3rem); }
 .promo__cta svg { width: 1.1em; height: 1.1em; }
 .promo-empty { color: var(--muted); }
 
+/* ---------- Szolgáltatási terület – településlista ---------- */
+.towns { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .9rem; }
+.towns span {
+  font-family: var(--font-display); font-weight: 600; font-size: .88rem;
+  padding: .45rem .9rem; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--line); color: var(--ink-soft);
+}
+.towns--free span { background: var(--cold-100); border-color: var(--cold-300); color: var(--cold-900); }
+
 /* ---------- Márkák ---------- */
 .brands { display: flex; flex-wrap: wrap; gap: .6rem; }
 .brands span {
