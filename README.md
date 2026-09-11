@@ -21,6 +21,7 @@ index.html            Főoldal
 szolgaltatasok.html   Szolgáltatások
 arak.html             Árlista
 referenciak.html      Galéria (szűrő + lightbox)
+velemenyek.html       Ügyfélvélemények (Facebook-hozzászólásokból)
 gyik.html             Bővebb GYIK (FAQPage strukturált adattal)
 kisokos.html          Klíma-kisokos – örökzöld magyarázók (FAQPage)
 rolunk.html           Rólunk
@@ -32,7 +33,7 @@ impresszum.html       Impresszum (hiányzó adatokkal)
 404.html              Hibaoldal
 assets/css/styles.css Teljes dizájnrendszer (színek, tipográfia, reszponzív)
 assets/js/main.js     Menü, galéria, lightbox, űrlap, chatbot-helyőrző
-assets/img/           logo.svg, favicon.svg, tuz-jeg-arculat.jpg, ref-placeholder.svg
+assets/img/           logo.svg, favicon.svg, tuz-jeg-arculat.jpg, referencia- és csapatfotók
 robots.txt, sitemap.xml, CNAME, .nojekyll
 .github/workflows/pages.yml   GitHub Pages deploy (opcionális út)
 brief/                Az adatgyűjtő kérdőív, az eredeti arculati kép és a tervezet
