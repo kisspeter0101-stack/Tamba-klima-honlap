@@ -164,7 +164,7 @@
       .then(function (r) { return r.ok ? r.json() : []; })
       .then(function (list) {
         if (!Array.isArray(list)) list = [];
-        list = list.slice(0, 3);
+        list = list.slice(0, 4);
         if (!list.length) return;
         promoGrid.innerHTML = "";
         list.forEach(function (a) {
