@@ -172,26 +172,27 @@ p + p { margin-top: 0.85rem; }
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
 }
+.site-header .container { max-width: 1400px; }
 .site-header__inner {
   display: flex; align-items: center; justify-content: space-between;
   gap: 1rem; min-height: var(--header-h);
 }
-.brand { display: inline-flex; align-items: center; gap: .6rem; text-decoration: none; }
-.brand__logo { height: 38px; width: auto; }
+.brand { display: inline-flex; align-items: center; gap: .6rem; text-decoration: none; flex-shrink: 0; }
+.brand__logo { height: 38px; width: auto; flex-shrink: 0; }
 .brand__text { font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; letter-spacing: .5px; }
 .brand__text .cold { color: var(--cold-600, var(--cold-700)); }
 .brand__text .warm { color: var(--warm-500); }
 
-.nav { display: flex; align-items: center; gap: .4rem; }
+.nav { display: flex; align-items: center; gap: .1rem; }
 .nav a {
-  font-family: var(--font-display); font-weight: 600; font-size: .95rem;
+  font-family: var(--font-display); font-weight: 600; font-size: .9rem;
   color: var(--ink-soft); text-decoration: none;
-  padding: .55rem .7rem; border-radius: 8px;
+  padding: .55rem .55rem; border-radius: 8px; white-space: nowrap;
 }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--cold-900); background: var(--cold-100); }
-@media (min-width: 1201px) { .nav .phone-btn { display: none; } }
+@media (min-width: 1281px) { .nav .phone-btn { display: none; } }
 
-.header-cta { display: inline-flex; align-items: center; gap: .5rem; }
+.header-cta { display: inline-flex; align-items: center; gap: .5rem; flex-shrink: 0; }
 .phone-btn {
   display: inline-flex; align-items: center; gap: .5rem;
   font-family: var(--font-display); font-weight: 800; font-size: .98rem;
@@ -208,7 +209,7 @@ p + p { margin-top: 0.85rem; }
 }
 .nav-toggle svg { width: 22px; height: 22px; }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .nav-toggle { display: inline-flex; }
   .nav {
     position: fixed; inset: var(--header-h) 0 auto 0;
