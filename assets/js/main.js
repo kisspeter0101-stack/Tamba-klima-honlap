@@ -164,7 +164,10 @@
       .then(function (r) { return r.ok ? r.json() : []; })
       .then(function (list) {
         if (!Array.isArray(list)) list = [];
-        list = list.slice(0, 6);
+        var limitAttr = promoWrap.getAttribute("data-promo-limit");
+        var limit = limitAttr ? parseInt(limitAttr, 10) : list.length;
+        if (!isFinite(limit) || limit <= 0) limit = list.length;
+        list = list.slice(0, limit);
         if (!list.length) return;
         promoGrid.innerHTML = "";
         list.forEach(function (a) {
