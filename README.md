@@ -33,7 +33,7 @@ impresszum.html       Impresszum (hiányzó adatokkal)
 404.html              Hibaoldal
 assets/css/styles.css Teljes dizájnrendszer (színek, tipográfia, reszponzív)
 assets/js/main.js     Menü, galéria, lightbox, űrlap, chatbot-helyőrző
-assets/img/           logo.svg, favicon.svg, tuz-jeg-arculat.jpg, referencia- és csapatfotók
+assets/img/           logo.svg, favicon.svg, arculat.jpg, referencia- és csapatfotók
 robots.txt, sitemap.xml, CNAME, .nojekyll
 .github/workflows/pages.yml   GitHub Pages deploy (opcionális út)
 brief/                Az adatgyűjtő kérdőív, az eredeti arculati kép és a tervezet
