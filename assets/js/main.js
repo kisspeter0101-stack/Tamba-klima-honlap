@@ -193,35 +193,70 @@
       .catch(function () { /* marad a "nincs akció" állapot */ });
   }
 
-  /* ---------- Árlista ----------
-     Az arak.html táblázata az assets/data/arak.json fájlból épül
-     ({"sorok":[{tetel, ar}]}). Hiba esetén a tartalék üzenet marad.
+  /* ---------- Árak ----------
+     Minden ár az assets/data/arak.json fájlból jön ({"sorok":[{id, tetel, ar}]}):
+     - az arak.html táblázata ([data-price-body]) ebből épül;
+     - a [data-ar="azonosító"] elemek (főoldal, GYIK) az adott sor "ar" értékét kapják:
+         alapból a teljes szöveget (pl. "80 000 Ft-tól"),
+         data-ar-amount: csak az összeget az első "Ft"-ig (pl. "80 000 Ft"),
+         data-ar-card: árkártya – az összeg + kis betűs toldalék (-tól, / alkalom).
+     Hiba esetén a HTML-ben szereplő alapérték marad.
   --------------------------------------------------------------- */
   var priceBody = document.querySelector("[data-price-body]");
-  if (priceBody) {
+  var priceRefs = document.querySelectorAll("[data-ar]");
+  if (priceBody || priceRefs.length) {
     var priceFb = document.querySelector("[data-price-fallback]");
     var priceFail = function () { if (priceFb) priceFb.hidden = false; };
+    var splitPrice = function (ar) {
+      var m = /^(.*?Ft)\s*(.*)$/.exec(ar);
+      return m ? { amount: m[1], rest: m[2] } : { amount: ar, rest: "" };
+    };
     fetch("assets/data/arak.json", { cache: "no-cache" })
       .then(function (r) { return r.ok ? r.json() : {}; })
       .then(function (data) {
         var rows = data && Array.isArray(data.sorok) ? data.sorok : [];
         if (!rows.length) { priceFail(); return; }
-        priceBody.innerHTML = "";
-        rows.forEach(function (s) {
-          if (!s || !s.tetel) return;
-          var tr = document.createElement("tr");
-          var td1 = document.createElement("td");
-          td1.textContent = s.tetel;
-          var td2 = document.createElement("td");
-          td2.className = "amount";
-          td2.textContent = s.ar || "";
-          tr.appendChild(td1);
-          tr.appendChild(td2);
-          priceBody.appendChild(tr);
+
+        if (priceBody) {
+          priceBody.innerHTML = "";
+          rows.forEach(function (s) {
+            if (!s || !s.tetel) return;
+            var tr = document.createElement("tr");
+            var td1 = document.createElement("td");
+            td1.textContent = s.tetel;
+            var td2 = document.createElement("td");
+            td2.className = "amount";
+            td2.textContent = s.ar || "";
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            priceBody.appendChild(tr);
+          });
+        }
+
+        var byId = {};
+        rows.forEach(function (s) { if (s && s.id && s.ar) byId[s.id] = s.ar; });
+        Array.prototype.forEach.call(priceRefs, function (el) {
+          var ar = byId[el.getAttribute("data-ar")];
+          if (!ar) return;
+          var p = splitPrice(ar);
+          if (el.hasAttribute("data-ar-card")) {
+            var suffix = p.rest ? " " + p.rest : (el.getAttribute("data-ar-suffix") || "");
+            el.textContent = p.amount;
+            if (suffix) {
+              var small = document.createElement("small");
+              small.textContent = suffix;
+              el.appendChild(small);
+            }
+          } else if (el.hasAttribute("data-ar-amount")) {
+            el.textContent = p.amount;
+          } else {
+            el.textContent = ar;
+          }
         });
       })
       .catch(priceFail);
   }
+
 
   /* ---------- GYIK / Kisokos kereső ----------
      Ékezet-érzéketlen szűrés a kérdés + válasz szövegében.
