@@ -1,17 +1,56 @@
 {
   "sorok": [
-    { "tetel": "Alapszerelés – standard split, 3,5 kW-ig", "ar": "80 000 Ft-tól" },
-    { "tetel": "Alapszerelés – nagyobb teljesítmény, 3,5 kW felett", "ar": "100 000 Ft-tól" },
-    { "tetel": "Falon kívüli vezetéktakaró (dekorcsatorna)", "ar": "Az alapárban" },
-    { "tetel": "Többlet csővezeték (az alapban foglalt hosszon felül)", "ar": "12 000 Ft / méter" },
-    { "tetel": "Extra falátfúrás", "ar": "10 000 Ft / db" },
-    { "tetel": "Elektromos bekötés hosszabbítása", "ar": "10 méterig díjmentes" },
-    { "tetel": "Multi-split rendszer", "ar": "+60 000 Ft / beltéri egység" },
-    { "tetel": "Kazettás / mennyezeti / padlón álló klíma felára", "ar": "Egyedi (felmérés alapján)" },
-    { "tetel": "Régi készülék leszerelése", "ar": "20 000 Ft-tól" },
-    { "tetel": "Régi készülék elszállítása", "ar": "Egyedi megállapodás szerint" },
-    { "tetel": "Nehezített hozzáférés (magasból, állványról)", "ar": "Egyedi – állványbérlet szerint" },
-    { "tetel": "Klímakarbantartás – mosózsákos, vegyszeres fertőtlenítő tisztítás (alkalmanként)", "ar": "15 000 Ft" },
-    { "tetel": "Kiszállási / helyszíni felmérés", "ar": "Ingyenes a közelebbi helyszíneken" }
+    {
+      "tetel": "Alapszerelés – standard split, 3,5 kW-ig",
+      "ar": "89 000 Ft-tól"
+    },
+    {
+      "tetel": "Alapszerelés – nagyobb teljesítmény, 3,5 kW felett",
+      "ar": "100 000 Ft-tól"
+    },
+    {
+      "tetel": "Falon kívüli vezetéktakaró (dekorcsatorna)",
+      "ar": "Az alapárban"
+    },
+    {
+      "tetel": "Többlet csővezeték (az alapban foglalt hosszon felül)",
+      "ar": "12 000 Ft / méter"
+    },
+    {
+      "tetel": "Extra falátfúrás",
+      "ar": "10 000 Ft / db"
+    },
+    {
+      "tetel": "Elektromos bekötés hosszabbítása",
+      "ar": "10 méterig díjmentes"
+    },
+    {
+      "tetel": "Multi-split rendszer",
+      "ar": "+60 000 Ft / beltéri egység"
+    },
+    {
+      "tetel": "Kazettás / mennyezeti / padlón álló klíma felára",
+      "ar": "Egyedi (felmérés alapján)"
+    },
+    {
+      "tetel": "Régi készülék leszerelése",
+      "ar": "20 000 Ft-tól"
+    },
+    {
+      "tetel": "Régi készülék elszállítása",
+      "ar": "Egyedi megállapodás szerint"
+    },
+    {
+      "tetel": "Nehezített hozzáférés (magasból, állványról)",
+      "ar": "Egyedi – állványbérlet szerint"
+    },
+    {
+      "tetel": "Klímakarbantartás – mosózsákos, vegyszeres fertőtlenítő tisztítás (alkalmanként)",
+      "ar": "15 000 Ft"
+    },
+    {
+      "tetel": "Kiszállási / helyszíni felmérés",
+      "ar": "Ingyenes a közelebbi helyszíneken"
+    }
   ]
 }
