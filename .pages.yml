@@ -44,12 +44,9 @@ content:
         list: true
         description: "Az Árak oldal táblázata. A sorrend számít. Az alapszerelés és a karbantartás árát a főoldal és a GYIK is ebből veszi, tehát itt elég átírni. Ha új sort veszel fel, az csak az Árak oldalon jelenik meg."
         fields:
-          - name: id
-            label: Azonosító (ne módosítsd)
-            type: string
-            hidden: true
           - name: tetel
             label: Tétel
+            description: "Az első két (Alapszerelés) és a Klímakarbantartás sor elejét ne írd át, mert a főoldal ár-kijelzése ezekről ismeri fel a sort."
             type: string
             required: true
           - name: ar

@@ -194,9 +194,9 @@
   }
 
   /* ---------- Árak ----------
-     Minden ár az assets/data/arak.json fájlból jön ({"sorok":[{id, tetel, ar}]}):
+     Minden ár az assets/data/arak.json fájlból jön ({"sorok":[{tetel, ar}]}):
      - az arak.html táblázata ([data-price-body]) ebből épül;
-     - a [data-ar="azonosító"] elemek (főoldal, GYIK) az adott sor "ar" értékét kapják:
+     - a [data-ar="kulcs"] elemek (a sort a tétel eleje azonosítja) (főoldal, GYIK) az adott sor "ar" értékét kapják:
          alapból a teljes szöveget (pl. "80 000 Ft-tól"),
          data-ar-amount: csak az összeget az első "Ft"-ig (pl. "80 000 Ft"),
          data-ar-card: árkártya – az összeg + kis betűs toldalék (-tól, / alkalom).
@@ -233,8 +233,19 @@
           });
         }
 
+        // A sorokat a tétel elejéről ismerjük fel (a CMS nem őrzi meg a rejtett mezőket).
+        var priceKeys = {
+          "alapszereles": /^Alapszerel\S* – standard/i,
+          "alapszereles-nagy": /^Alapszerel\S* – nagyobb/i,
+          "karbantartas": /^Klímakarbantart/i
+        };
         var byId = {};
-        rows.forEach(function (s) { if (s && s.id && s.ar) byId[s.id] = s.ar; });
+        rows.forEach(function (s) {
+          if (!s || !s.tetel || !s.ar) return;
+          Object.keys(priceKeys).forEach(function (k) {
+            if (!byId[k] && priceKeys[k].test(s.tetel)) byId[k] = s.ar;
+          });
+        });
         Array.prototype.forEach.call(priceRefs, function (el) {
           var ar = byId[el.getAttribute("data-ar")];
           if (!ar) return;
