@@ -153,17 +153,17 @@
   }
 
   /* ---------- Aktuális akciók ----------
-     Az akciók az assets/data/akciok.json fájlból jönnek (soronként egy kép).
-     Üres tömb vagy hiba esetén a szekció a "nincs akció" szöveget mutatja.
+     Az akciók az assets/data/akciok.json fájlból jönnek ({"akciok":[{kep, alt}]}),
+     a sorrend számít (a főoldalon az első 3 látszik). Üres lista vagy hiba esetén a szekció a "nincs akció" szöveget mutatja.
   --------------------------------------------------------------- */
   var promoWrap = document.querySelector("[data-promos]");
   if (promoWrap) {
     var promoGrid = promoWrap.querySelector("[data-promo-grid]");
     var promoEmpty = promoWrap.querySelector("[data-promo-empty]");
     fetch("assets/data/akciok.json", { cache: "no-cache" })
-      .then(function (r) { return r.ok ? r.json() : []; })
-      .then(function (list) {
-        if (!Array.isArray(list)) list = [];
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (data) {
+        var list = data && Array.isArray(data.akciok) ? data.akciok : [];
         var limitAttr = promoWrap.getAttribute("data-promo-limit");
         var limit = limitAttr ? parseInt(limitAttr, 10) : list.length;
         if (!isFinite(limit) || limit <= 0) limit = list.length;
@@ -183,7 +183,7 @@
           link.appendChild(img);
           var cta = document.createElement("span");
           cta.className = "promo__cta";
-          cta.innerHTML = "<span>" + (a.gomb || "Kérek ajánlatot") + "</span><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>";
+          cta.innerHTML = "<span>Kérek ajánlatot</span><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>";
           link.appendChild(cta);
           promoGrid.appendChild(link);
         });
@@ -191,6 +191,36 @@
         if (promoEmpty) promoEmpty.hidden = true;
       })
       .catch(function () { /* marad a "nincs akció" állapot */ });
+  }
+
+  /* ---------- Árlista ----------
+     Az arak.html táblázata az assets/data/arak.json fájlból épül
+     ({"sorok":[{tetel, ar}]}). Hiba esetén a tartalék üzenet marad.
+  --------------------------------------------------------------- */
+  var priceBody = document.querySelector("[data-price-body]");
+  if (priceBody) {
+    var priceFb = document.querySelector("[data-price-fallback]");
+    var priceFail = function () { if (priceFb) priceFb.hidden = false; };
+    fetch("assets/data/arak.json", { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (data) {
+        var rows = data && Array.isArray(data.sorok) ? data.sorok : [];
+        if (!rows.length) { priceFail(); return; }
+        priceBody.innerHTML = "";
+        rows.forEach(function (s) {
+          if (!s || !s.tetel) return;
+          var tr = document.createElement("tr");
+          var td1 = document.createElement("td");
+          td1.textContent = s.tetel;
+          var td2 = document.createElement("td");
+          td2.className = "amount";
+          td2.textContent = s.ar || "";
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+          priceBody.appendChild(tr);
+        });
+      })
+      .catch(priceFail);
   }
 
   /* ---------- GYIK / Kisokos kereső ----------

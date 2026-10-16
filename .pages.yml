@@ -1,0 +1,55 @@
+# Pages CMS beállítás (https://pagescms.org) – Támba Klíma
+# Csabi itt tudja kezelni az akciókat és az árlistát; mentéskor a változás
+# commitként kerül a repóba, a Vercel pedig automatikusan újra kiteszi az oldalt.
+
+media:
+  input: assets/img/akcio
+  output: /assets/img/akcio
+  categories: [image]
+  extensions: [jpg, jpeg, png, webp]
+
+content:
+  - name: akciok
+    label: Akciók
+    type: file
+    path: assets/data/akciok.json
+    format: json
+    fields:
+      - name: akciok
+        label: Akciós plakátok
+        type: object
+        list: true
+        description: "A sorrend számít: a főoldalon az ELSŐ 3 akció jelenik meg, az Akciók oldalon mind. Az akció törléséhez töröld a sort."
+        fields:
+          - name: kep
+            label: Plakát (kép)
+            type: image
+            required: true
+            description: "Lehetőleg álló vagy négyzetes plakát, legfeljebb ~1 MB (a Facebookról lementett kép megfelel)."
+          - name: alt
+            label: Kép leírása (az ár is szerepeljen benne)
+            type: string
+            required: true
+            description: "Pl.: Midea Solstice klíma, 3,5 kW – alapszereléssel 310 000 Ft. Ez látszik a keresőknek és a képernyőolvasóknak."
+
+  - name: arak
+    label: Árlista
+    type: file
+    path: assets/data/arak.json
+    format: json
+    fields:
+      - name: sorok
+        label: Árlista sorai
+        type: object
+        list: true
+        description: "Az Árak oldal táblázata. A sorrend számít. Az alapár (80 000 / 100 000 Ft) a főoldalon és a GYIK-ban is szerepel – ha azt módosítod, szólj a weboldal készítőjének."
+        fields:
+          - name: tetel
+            label: Tétel
+            type: string
+            required: true
+          - name: ar
+            label: Ár
+            type: string
+            required: true
+            description: "Szövegként írd, pl.: 80 000 Ft-tól, 12 000 Ft / méter, Egyedi megállapodás szerint"
