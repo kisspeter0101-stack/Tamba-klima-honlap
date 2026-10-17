@@ -30,7 +30,7 @@ content:
             label: Kép leírása (az ár is szerepeljen benne)
             type: string
             required: true
-            description: "Pl.: Midea Solstice klíma, 3,5 kW – alapszereléssel 310 000 Ft. Ez látszik a keresőknek és a képernyőolvasóknak."
+            description: "Pl.: Midea Solstice klíma, 3,5 kW – alapszereléssel 280000 Ft. Ez látszik a keresőknek és a képernyőolvasóknak."
 
   - name: arak
     label: Árlista
