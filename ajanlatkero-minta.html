@@ -164,8 +164,18 @@
             <label class="opt"><input type="radio" name="ingatlan" value="egyeb"><span>Egyéb</span></label>
           </div>
 
-          <!-- csak társasháznál -->
-          <div class="cond" data-show="ingatlan:lakas">
+          <!-- csak régi klíma cseréjénél -->
+          <div class="cond" data-show="szolg:csere">
+            <p class="wiz__q">Ugyanoda kerülne az új készülék, ahol most a régi van? <span class="req">*</span></p>
+            <div class="opts opts--row">
+              <label class="opt"><input type="radio" name="ugyanoda" value="igen" required><span>Igen, ugyanoda</span></label>
+              <label class="opt"><input type="radio" name="ugyanoda" value="nem"><span>Nem, máshová</span></label>
+            </div>
+            <p class="form-note" data-show="ugyanoda:igen">Ilyenkor a meglévő bekötést a helyszínen ellenőrizzük, és sok kérdést nem kell feltennünk.</p>
+          </div>
+
+          <!-- társasháznál, ha új kültéri egység helye szóba jön (nem karbantartás, nem javítás, nem egyhelyes csere) -->
+          <div class="cond" data-show="ingatlan:lakas szolg:telepites|athelyezes; ingatlan:lakas szolg:csere ugyanoda:nem">
             <p class="wiz__q">Van a társasház hozzájárulása a kültéri egység elhelyezéséhez? <span class="req">*</span></p>
             <div class="opts opts--row">
               <label class="opt"><input type="radio" name="hozzajarulas" value="igen" required><span>Igen</span></label>
@@ -175,8 +185,8 @@
             <p class="form-note" data-show="hozzajarulas:nem|nemtudom">Semmi gond, ezt a felmérésen megbeszéljük, és tanácsot adunk, hogyan kérje a közös képviselőtől.</p>
           </div>
 
-          <!-- csak családi háznál -->
-          <div class="cond" data-show="ingatlan:haz">
+          <!-- csak családi háznál, új telepítésnél -->
+          <div class="cond" data-show="ingatlan:haz szolg:telepites">
             <p class="wiz__q">Meglévő vagy építés alatt álló a ház? <span class="req">*</span></p>
             <div class="opts opts--row">
               <label class="opt"><input type="radio" name="allapot" value="meglevo" required><span>Meglévő</span></label>
@@ -200,7 +210,7 @@
           <legend>A helyiség és a készülék</legend>
 
           <!-- telepítés, csere, áthelyezés, nem tudom -->
-          <div class="cond" data-show="szolg:telepites|csere|athelyezes|nemtudom">
+          <div class="cond" data-show="szolg:telepites|csere|nemtudom">
             <div class="field">
               <label for="terulet">A helyiség alapterülete <span class="req">*</span></label>
               <select id="terulet" name="terulet" required>
@@ -235,7 +245,7 @@
           </div>
 
           <!-- karbantartás, javítás -->
-          <div class="cond" data-show="szolg:karbantartas|javitas">
+          <div class="cond" data-show="szolg:karbantartas|javitas|athelyezes">
             <div class="form-row">
               <div class="field">
                 <label for="marka">A készülék márkája <span class="req">*</span></label>
@@ -276,6 +286,7 @@
               <option value="tetoter">Tetőtér</option>
             </select>
           </div>
+          <div data-show="szolg:telepites|athelyezes; szolg:csere ugyanoda:nem">
           <div class="field">
             <label for="fal">Milyen a fal, amelyen át a csöveket vezetnék? <span class="req">*</span></label>
             <select id="fal" name="fal" required>
@@ -333,6 +344,7 @@
             <label class="opt"><input type="radio" name="aram" value="nemtudom"><span>Nem tudom</span></label>
           </div>
           <p class="form-note" data-show="aram:10+">Az elektromos bekötés 10 méterig díjmentes, afelett külön díjat számolunk.</p>
+          </div>
 
           <div class="cond" data-show="szolg:csere">
             <p class="wiz__q">Mi legyen a régi készülékkel? <span class="req">*</span></p>
@@ -472,21 +484,33 @@
   err.className = "wiz__err"; err.setAttribute("role", "alert"); err.hidden = true;
   form.querySelector(".wiz__nav").before(err);
 
-  function val(name) { var f = form.elements[name]; return f ? f.value : ""; }
+  // Egy mező aktuális értéke. A rejtett (letiltott) mezőt üresnek vesszük, így egy korábbi útvonal
+  // válasza nem szivárog át (pl. kondenzvíz, ha a kérdés már nem látszik).
+  function val(name) {
+    var f = form.elements[name];
+    if (!f) return "";
+    var nodes = f.length !== undefined && f.type === undefined ? [].slice.call(f) : [f];
+    return nodes.every(function (n) { return n.disabled; }) ? "" : f.value;
+  }
 
-  // data-show="mező:érték1|érték2 másikmező:érték" – minden feltételnek teljesülnie kell
+  // data-show="mező:érték1|érték2 másikmező:érték" – egy csoporton belül minden feltételnek teljesülnie kell;
+  // a ";"-vel elválasztott csoportok közül elég az egyik (VAGY).
   function matches(el) {
-    return el.getAttribute("data-show").trim().split(/\s+/).every(function (c) {
-      var p = c.split(":");
-      return p[1].split("|").indexOf(val(p[0])) !== -1;
+    return el.getAttribute("data-show").split(";").some(function (group) {
+      return group.trim().split(/\s+/).every(function (c) {
+        var p = c.split(":");
+        return p[1].split("|").indexOf(val(p[0])) !== -1;
+      });
     });
   }
 
   function apply() {
-    // 1) feltételes blokkok megjelenítése / elrejtése
-    [].forEach.call(form.querySelectorAll("[data-show]"), function (el) { el.hidden = !matches(el); });
-    // 2) a rejtett blokkok mezőit letiltjuk: nem kötelezők, nem kerülnek be az adatok közé
-    [].forEach.call(form.querySelectorAll("input, select, textarea"), function (f) { f.disabled = !!f.closest("[hidden]"); });
+    // 1) feltételes blokkok megjelenítése / elrejtése, 2) a rejtett blokkok mezőinek letiltása
+    // (nem kötelezők, nem kerülnek be az adatok közé). Háromszor futtatjuk, hogy a láncolt feltételek is beálljanak.
+    for (var pass = 0; pass < 3; pass++) {
+      [].forEach.call(form.querySelectorAll("[data-show]"), function (el) { el.hidden = !matches(el); });
+      [].forEach.call(form.querySelectorAll("input, select, textarea"), function (f) { f.disabled = !!f.closest("[hidden]"); });
+    }
     // 3) lépések és folyamatjelző
     var vis = steps.filter(function (s) { return !s.hidden; });
     if (vis.indexOf(cur) === -1) cur = vis[0];
@@ -541,11 +565,13 @@
     if (szolg === "javitas") return { label: "Javítás", price: "Felmérés után", notes: ["A javítás díját a hiba megismerése után adjuk meg, a kiszállás díját telefonon egyeztetjük."] };
     if (szolg === "nemtudom") return { label: "Tanácsadás", price: "Ingyenes visszahívás", notes: ["Segítünk kiválasztani a megfelelő készüléket és megmondjuk, mennyibe kerülne."] };
     if (db >= 3) return { label: "Előzetes ársáv", price: "Egyedi ár", notes: ["3 géptől személyre szabott ajánlatot adunk, ezt felméréssel pontosítjuk."] };
-    var t = val("terulet");
-    low = (t === "22" || t === "35") ? 80000 : (t === "nemtudom" ? 80000 : 100000);
+    var t = val("terulet") || "nemtudom"; // áthelyezésnél nincs alapterület-kérdés
+    if (szolg === "athelyezes") notes.push("Az áthelyezés díja a készülék típusától függ, ezt a felmérés után pontosítjuk.");
+    if (szolg === "csere" && val("ugyanoda") === "igen") notes.push("A meglévő bekötést a helyszínen ellenőrizzük, szükség esetén a pontos ár változhat.");
+    low =(t === "22" || t === "35") ? 80000 : (t === "nemtudom" ? 80000 : 100000);
     high = (t === "22" || t === "35") ? 80000 : 100000;
     if (db === 2) { low += 60000; high += 60000; notes.push("Két beltéri egységes (multi-split) rendszer felára benne van."); }
-    var cso = val("szemben") === "igen" ? [0, 0] : ({ "5": [0, 2], "8": [2, 5], "9": [5, 10], "nemtudom": [0, 10] }[val("tav")] || [0, 10]);
+    var cso = (val("szemben") === "igen" || !val("szemben")) ? [0, 0] : ({ "5": [0, 2], "8": [2, 5], "9": [5, 10], "nemtudom": [0, 10] }[val("tav")] || [0, 10]);
     low += cso[0] * 12000; high += cso[1] * 12000;
     if (cso[1] > 0) notes.push("A távolságtól függően többlet csővezetékkel számolunk (12 000 Ft / méter).");
     if (val("aram") === "10+") { high += 20000; notes.push("Az áramforrás 10 méternél messzebb van, ezért az elektromos bekötés külön díjat kaphat."); }
@@ -560,7 +586,7 @@
 
   var LABELS = [
     ["szolg", "Szolgáltatás"], ["db", "Készülékek száma"], ["telepules", "Település"], ["ingatlan", "Ingatlan"],
-    ["hozzajarulas", "Társasházi hozzájárulás"], ["emelet", "Emelet"], ["allapot", "Az épület állapota"], ["idoszak", "Mikor végezhető a munka"],
+    ["ugyanoda", "Új készülék a régi helyén"], ["hozzajarulas", "Társasházi hozzájárulás"], ["emelet", "Emelet"], ["allapot", "Az épület állapota"], ["idoszak", "Mikor végezhető a munka"],
     ["terulet", "Alapterület"], ["haszn", "Használat"], ["nap", "Napsütés"], ["marka", "Márka"], ["kor", "Készülék kora"],
     ["utolso", "Utolsó karbantartás"], ["hiba", "Probléma"], ["kulteri", "Kültéri egység"],
     ["fal", "Fal anyaga"], ["szemben", "Kültéri egység ugyanazon a falon"], ["tav", "Egységek távolsága"],
