@@ -310,11 +310,14 @@
           </div>
           <p class="form-note" data-show="ingatlan:lakas fal:panel">Panellakásnál a kültéri egység jellemzően az erkélyre vagy az ablak alá kerül. A pontos helyet a felmérésen együtt választjuk ki.</p>
 
-          <p class="wiz__q">A kültéri egység ugyanazon a falon lenne, mint a beltéri, csak a fal másik oldalán? <span class="req">*</span></p>
-          <div class="opts">
-            <label class="opt"><input type="radio" name="szemben" value="igen" required><span>Igen, ugyanazon a falon, a másik oldalán (egy átfúrás)</span></label>
-            <label class="opt"><input type="radio" name="szemben" value="nem"><span>Nem, máshol lenne (csővezetés kell)</span></label>
-            <label class="opt"><input type="radio" name="szemben" value="nemtudom"><span>Nem tudom</span></label>
+          <!-- panelnél nem kérdezzük: ott a kültéri egység a külső falon, az ablak alatt vagy az erkélyen van -->
+          <div data-show="fal:tegla|szilikat|valyog|beton|konnyu|nemtudom">
+            <p class="wiz__q">A kültéri egység ugyanazon a falon lenne, mint a beltéri, csak a fal másik oldalán? <span class="req">*</span></p>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="szemben" value="igen" required><span>Igen, ugyanazon a falon, a másik oldalán (egy átfúrás)</span></label>
+              <label class="opt"><input type="radio" name="szemben" value="nem"><span>Nem, máshol lenne (csővezetés kell)</span></label>
+              <label class="opt"><input type="radio" name="szemben" value="nemtudom"><span>Nem tudom</span></label>
+            </div>
           </div>
 
           <div class="cond" data-show="szemben:nem|nemtudom">
