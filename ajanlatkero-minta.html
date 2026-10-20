@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ajánlatkérés – minta | Támba Klíma</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#073b73">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<style>
+  /* Ajánlatkérő varázsló – minta */
+  .wiz [hidden], .wiz__result [hidden] { display: none !important; }
+  .demo-banner {
+    background: #fff7e0; border: 1px solid #f2d98a; color: #5a4300;
+    border-radius: var(--radius-sm); padding: .8rem 1rem; margin: 0 0 1.2rem; font-size: .92rem;
+  }
+  .wiz__progress { margin-bottom: 1.4rem; }
+  .wiz__bar { height: 8px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+  .wiz__bar span { display: block; height: 100%; width: 0; background: var(--grad-cta); border-radius: 999px; transition: width .3s ease; }
+  .wiz__label { margin: .5rem 0 0; font-size: .9rem; color: var(--muted); font-weight: 600; }
+  .wiz__step { display: none; border: 0; margin: 0; padding: 0; min-width: 0; }
+  .wiz__step.is-current { display: block; }
+  .wiz__step legend { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; color: var(--cold-900); padding: 0; margin-bottom: 1rem; }
+  .wiz__q { font-family: var(--font-display); font-weight: 600; font-size: .98rem; margin: 1.1rem 0 .55rem; }
+  .wiz__step > .wiz__q:first-of-type { margin-top: 0; }
+  .req { color: var(--warm-500); }
+  .opts { display: grid; gap: .6rem; grid-template-columns: 1fr; }
+  @media (min-width: 560px) { .opts { grid-template-columns: repeat(2, 1fr); } .opts--row { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); } }
+  .opt { position: relative; display: block; cursor: pointer; }
+  .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .opt span {
+    display: flex; align-items: center; min-height: 52px; padding: .65rem 1rem;
+    border: 2px solid var(--line); border-radius: var(--radius-sm); background: #fff;
+    font-weight: 500; transition: border-color .15s, background .15s, box-shadow .15s;
+  }
+  .opt:hover span { border-color: var(--cold-300); }
+  .opt input:focus-visible + span { box-shadow: 0 0 0 3px rgba(30,155,224,.3); border-color: var(--cold-500); }
+  .opt input:checked ~ span { border-color: var(--cold-500); background: var(--cold-100); color: var(--cold-900); font-weight: 600; }
+  .cond { margin-top: 1.2rem; padding: 1rem 1.1rem; border-left: 4px solid var(--cold-300); background: var(--surface-2); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; animation: wizIn .25s ease; }
+  .cond > .wiz__q:first-child { margin-top: 0; }
+  @keyframes wizIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  .cond .field { margin-top: 1rem; }
+  .cond .field:first-child { margin-top: 0; }
+  .more { margin-top: 1rem; }
+  .more summary { cursor: pointer; font-weight: 600; color: var(--cold-700); }
+  .more .field { margin-top: .8rem; }
+  .wiz__nav { display: flex; justify-content: space-between; gap: .8rem; margin-top: 1.6rem; }
+  .wiz__nav .btn { min-width: 130px; justify-content: center; }
+  .wiz__err { margin: 1rem 0 0; color: #9b2c22; font-weight: 600; font-size: .92rem; }
+  .wiz__result { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: 1.6rem; }
+  .wiz__result h2 { margin-top: 0; }
+  .estimate { background: var(--cold-100); border-left: 5px solid var(--cold-500); border-radius: var(--radius-sm); padding: 1rem 1.2rem; margin: 1rem 0 1.4rem; }
+  .estimate__label { margin: 0; font-size: .88rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .estimate__price { margin: .2rem 0 .5rem; font-family: var(--font-display); font-weight: 800; font-size: clamp(1.4rem, 4vw, 1.9rem); color: var(--cold-900); }
+  .estimate ul { margin: .4rem 0 0; padding-left: 1.2rem; font-size: .92rem; color: var(--ink-soft); }
+  .summary { list-style: none; padding: 0; margin: .6rem 0 1rem; display: grid; gap: .35rem; }
+  .summary li { display: flex; gap: .6rem; font-size: .95rem; border-bottom: 1px solid var(--line); padding-bottom: .35rem; }
+  .summary b { flex: 0 0 11rem; color: var(--ink-soft); font-weight: 600; }
+  @media (max-width: 520px) { .summary li { flex-direction: column; gap: 0; } .summary b { flex: none; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Ugrás a tartalomra</a>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="index.html" aria-label="Támba Klíma – főoldal">
+      <img class="brand__logo" src="assets/img/logo.svg" alt="Támba Klíma" width="73" height="38">
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Menü megnyitása">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <nav id="primary-nav" class="nav" aria-label="Fő menü">
+      <a href="szolgaltatasok.html">Szolgáltatások</a>
+      <a href="arak.html">Árak</a>
+      <a href="akciok.html" aria-current="page">Akciók</a>
+      <a href="referenciak.html">Referenciák</a>
+      <a href="velemenyek.html">Vélemények</a>
+      <a href="gyik.html">GYIK</a>
+      <a href="kisokos.html">Kisokos</a>
+      <a href="rolunk.html">Rólunk</a>
+      <a href="kapcsolat.html">Kapcsolat</a>
+      <a class="phone-btn" href="tel:+36205422171">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1 .35 1.98.66 2.92a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.16-1.16a2 2 0 0 1 2.11-.45c.94.31 1.92.53 2.92.66A2 2 0 0 1 22 16.92z"/></svg>
+        +36 20 542 2171
+      </a>
+    </nav>
+    <div class="header-cta">
+      <a class="phone-btn" href="tel:+36205422171">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1 .35 1.98.66 2.92a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.16-1.16a2 2 0 0 1 2.11-.45c.94.31 1.92.53 2.92.66A2 2 0 0 1 22 16.92z"/></svg>
+        +36 20 542 2171
+      </a>
+    </div>
+  </div>
+</header>
+
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Főoldal</a> / Ajánlatkérés</p>
+      <h1>Kérjen ajánlatot</h1>
+      <p>Pár gyors kérdés, és előzetes ársávot is mutatunk. A pontos árat a helyszíni felmérés után adjuk meg.</p>
+    </div>
+  </section>
+
+  <section class="section section--cold">
+    <div class="container" style="max-width:780px">
+
+      <p class="demo-banner"><strong>MINTA:</strong> ez egy működő bemutató, nem küld el semmit. Kattintson végig különböző válaszokkal, és nézze meg, hogyan változnak a kérdések (pl. családi ház vagy társasház, telepítés vagy karbantartás). Az ársáv számai kitalált, szemléltető értékek.</p>
+
+      <form class="form-card wiz" id="wiz" novalidate>
+        <div class="wiz__progress" aria-live="polite">
+          <div class="wiz__bar"><span id="wizBar"></span></div>
+          <p class="wiz__label" id="wizLabel"></p>
+        </div>
+
+        <!-- 1. lépés -->
+        <fieldset class="wiz__step" data-step>
+          <legend>Mit szeretne?</legend>
+          <p class="wiz__q">Milyen szolgáltatást kér? <span class="req">*</span></p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="szolg" value="telepites" required><span>Új klíma telepítése</span></label>
+            <label class="opt"><input type="radio" name="szolg" value="karbantartas"><span>Karbantartás, tisztítás</span></label>
+            <label class="opt"><input type="radio" name="szolg" value="javitas"><span>Javítás, hibaelhárítás</span></label>
+            <label class="opt"><input type="radio" name="szolg" value="csere"><span>Régi klíma cseréje</span></label>
+            <label class="opt"><input type="radio" name="szolg" value="athelyezes"><span>Áthelyezés</span></label>
+            <label class="opt"><input type="radio" name="szolg" value="nemtudom"><span>Még nem tudom, tanácsot kérek</span></label>
+          </div>
+          <p class="wiz__q">Hány készüléket érint? <span class="req">*</span></p>
+          <div class="opts opts--row">
+            <label class="opt"><input type="radio" name="db" value="1" required><span>1</span></label>
+            <label class="opt"><input type="radio" name="db" value="2"><span>2</span></label>
+            <label class="opt"><input type="radio" name="db" value="3"><span>3 vagy több</span></label>
+          </div>
+        </fieldset>
+
+        <!-- 2. lépés -->
+        <fieldset class="wiz__step" data-step>
+          <legend>A helyszín</legend>
+          <div class="field">
+            <label for="telepules">Település <span class="req">*</span></label>
+            <select id="telepules" name="telepules" required>
+              <option value="">Válasszon…</option>
+              <option>Nyíregyháza</option><option>Nagykálló</option><option>Napkor</option><option>Nyírpazony</option>
+              <option>Kálmánháza</option><option>Kótaj</option><option>Nagycserkesz</option><option>Nyírtura</option>
+              <option>Sényő</option><option>Nyírtelek</option><option>Nyírbogdány</option><option>Kemecse</option>
+              <option>Ibrány</option><option>Rakamaz</option><option>Tiszavasvári</option><option>Balkány</option>
+              <option>Dombrád</option><option>Demecser</option><option>Nagyhalász</option><option>Kisvárda</option>
+              <option>Mátészalka</option><option>Nyírbátor</option><option>Baktalórántháza</option><option>Vaja</option>
+              <option>Debrecen</option><option>Egyéb település</option>
+            </select>
+          </div>
+
+          <p class="wiz__q">Milyen ingatlanról van szó? <span class="req">*</span></p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="ingatlan" value="lakas" required><span>Lakás társasházban</span></label>
+            <label class="opt"><input type="radio" name="ingatlan" value="haz"><span>Családi ház</span></label>
+            <label class="opt"><input type="radio" name="ingatlan" value="iroda"><span>Iroda, üzlet</span></label>
+            <label class="opt"><input type="radio" name="ingatlan" value="egyeb"><span>Egyéb</span></label>
+          </div>
+
+          <!-- csak társasháznál -->
+          <div class="cond" data-show="ingatlan:lakas">
+            <p class="wiz__q">Van a társasház hozzájárulása a kültéri egység elhelyezéséhez? <span class="req">*</span></p>
+            <div class="opts opts--row">
+              <label class="opt"><input type="radio" name="hozzajarulas" value="igen" required><span>Igen</span></label>
+              <label class="opt"><input type="radio" name="hozzajarulas" value="nem"><span>Még nincs</span></label>
+              <label class="opt"><input type="radio" name="hozzajarulas" value="nemtudom"><span>Nem tudom</span></label>
+            </div>
+            <p class="form-note" data-show="hozzajarulas:nem|nemtudom">Semmi gond, ezt a felmérésen megbeszéljük, és tanácsot adunk, hogyan kérje a közös képviselőtől.</p>
+          </div>
+
+          <!-- csak családi háznál -->
+          <div class="cond" data-show="ingatlan:haz">
+            <p class="wiz__q">Meglévő vagy építés alatt álló a ház? <span class="req">*</span></p>
+            <div class="opts opts--row">
+              <label class="opt"><input type="radio" name="allapot" value="meglevo" required><span>Meglévő</span></label>
+              <label class="opt"><input type="radio" name="allapot" value="epul"><span>Építés, felújítás alatt</span></label>
+            </div>
+            <p class="form-note" data-show="allapot:epul">Építés alatt a csővezetést még a falakba is el tudjuk rejteni. Érdemes minél előbb egyeztetni.</p>
+          </div>
+
+          <!-- csak irodánál, üzletnél -->
+          <div class="cond" data-show="ingatlan:iroda">
+            <p class="wiz__q">Mikor végezhető el a munka? <span class="req">*</span></p>
+            <div class="opts opts--row">
+              <label class="opt"><input type="radio" name="idoszak" value="nyitva" required><span>Nyitvatartás alatt</span></label>
+              <label class="opt"><input type="radio" name="idoszak" value="zaras"><span>Zárás után, hétvégén</span></label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 3. lépés -->
+        <fieldset class="wiz__step" data-step>
+          <legend>A helyiség és a készülék</legend>
+
+          <!-- telepítés, csere, áthelyezés, nem tudom -->
+          <div class="cond" data-show="szolg:telepites|csere|athelyezes|nemtudom">
+            <div class="field">
+              <label for="terulet">A helyiség alapterülete <span class="req">*</span></label>
+              <select id="terulet" name="terulet" required>
+                <option value="">Válasszon…</option>
+                <option value="22">kb. 15–22 m²</option>
+                <option value="35">22–35 m²</option>
+                <option value="50">35–50 m²</option>
+                <option value="70">50–70 m²</option>
+                <option value="70+">70 m² felett</option>
+                <option value="nemtudom">Nem tudom</option>
+              </select>
+            </div>
+            <p class="wiz__q">Mire használná? <span class="req">*</span></p>
+            <div class="opts opts--row">
+              <label class="opt"><input type="radio" name="haszn" value="hutes" required><span>Csak hűtés</span></label>
+              <label class="opt"><input type="radio" name="haszn" value="mindketto"><span>Hűtés és fűtés</span></label>
+              <label class="opt"><input type="radio" name="haszn" value="futes"><span>Főként fűtés</span></label>
+            </div>
+            <details class="more">
+              <summary>Pontosítás (nem kötelező, de szűkíti az ársávot)</summary>
+              <div class="field">
+                <label for="nap">Napsütés a helyiségben</label>
+                <select id="nap" name="nap">
+                  <option value="">Nem tudom</option>
+                  <option>Nagy déli / nyugati ablak</option>
+                  <option>Átlagos</option>
+                  <option>Árnyékos</option>
+                  <option>Tetőtér vagy felső szint</option>
+                </select>
+              </div>
+            </details>
+          </div>
+
+          <!-- karbantartás, javítás -->
+          <div class="cond" data-show="szolg:karbantartas|javitas">
+            <div class="form-row">
+              <div class="field">
+                <label for="marka">A készülék márkája <span class="req">*</span></label>
+                <input id="marka" name="marka" type="text" placeholder="Pl. Midea, Gree, LG…" required>
+              </div>
+              <div class="field">
+                <label for="kor">A készülék kora <span class="req">*</span></label>
+                <select id="kor" name="kor" required>
+                  <option value="">Válasszon…</option>
+                  <option>1–3 év</option><option>4–7 év</option><option>8 évnél régebbi</option><option>Nem tudom</option>
+                </select>
+              </div>
+            </div>
+            <div class="field" data-show="szolg:karbantartas">
+              <label for="utolso">Mikor volt utoljára karbantartva? <span class="req">*</span></label>
+              <select id="utolso" name="utolso" required>
+                <option value="">Válasszon…</option>
+                <option>Az elmúlt évben</option><option>1–2 éve</option><option>Több mint 2 éve</option><option>Még soha</option>
+              </select>
+            </div>
+            <div class="field" data-show="szolg:javitas">
+              <label for="hiba">Mi a probléma? <span class="req">*</span></label>
+              <textarea id="hiba" name="hiba" required placeholder="Pl. nem hűt, csöpög, hibakódot ír ki…"></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 4. lépés: csak telepítésnél, cserénél, áthelyezésnél -->
+        <fieldset class="wiz__step" data-step data-show="szolg:telepites|csere|athelyezes">
+          <legend>A beszerelés részletei</legend>
+          <div class="field">
+            <label for="emelet">Hányadik szinten lenne a beltéri egység? <span class="req">*</span></label>
+            <select id="emelet" name="emelet" required>
+              <option value="">Válasszon…</option>
+              <option value="fold">Földszint</option>
+              <option value="1-2">1–2. emelet</option>
+              <option value="3+">3. emelet vagy magasabb</option>
+              <option value="tetoter">Tetőtér</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="fal">Milyen a fal, amelyen át a csöveket vezetnék? <span class="req">*</span></label>
+            <select id="fal" name="fal" required>
+              <option value="">Válasszon…</option>
+              <option value="tegla">Tégla</option>
+              <option value="panel">Panel</option>
+              <option value="beton">Beton, vasbeton</option>
+              <option value="konnyu">Könnyűszerkezet</option>
+              <option value="nemtudom">Nem tudom</option>
+            </select>
+          </div>
+          <p class="wiz__q">Hol lenne a kültéri egység? <span class="req">*</span></p>
+          <div class="opts opts--row">
+            <label class="opt"><input type="radio" name="kulteri" value="homlokzat" required><span data-show="ingatlan:lakas">Az ablak alatt, a külső falon</span><span data-show="ingatlan:haz|egyeb|iroda">A külső falon, konzolon</span></label>
+            <label class="opt" data-show="ingatlan:lakas"><input type="radio" name="kulteri" value="erkely"><span>Az erkélyen, loggián</span></label>
+            <label class="opt" data-show="ingatlan:haz|egyeb|iroda"><input type="radio" name="kulteri" value="talaj"><span>A talajon</span></label>
+            <label class="opt" data-show="ingatlan:haz|egyeb|iroda"><input type="radio" name="kulteri" value="teto"><span>A tetőn</span></label>
+            <label class="opt"><input type="radio" name="kulteri" value="nemtudom"><span>Nem tudom</span></label>
+          </div>
+          <p class="form-note" data-show="ingatlan:lakas fal:panel">Panellakásnál a kültéri egység jellemzően az erkélyre vagy az ablak alá kerül. A pontos helyet a felmérésen együtt választjuk ki.</p>
+
+          <p class="wiz__q">A kültéri egység a beltérivel szemközti falon, a fal másik oldalán lenne? <span class="req">*</span></p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="szemben" value="igen" required><span>Igen, közvetlenül a fal másik oldalán (egy átfúrás)</span></label>
+            <label class="opt"><input type="radio" name="szemben" value="nem"><span>Nem, máshol (csővezetés kell)</span></label>
+            <label class="opt"><input type="radio" name="szemben" value="nemtudom"><span>Nem tudom</span></label>
+          </div>
+
+          <div class="cond" data-show="szemben:nem|nemtudom">
+            <p class="wiz__q">Kb. milyen messze lenne a két egység egymástól? <span class="req">*</span></p>
+            <div class="opts opts--row">
+              <label class="opt"><input type="radio" name="tav" value="5" required><span>3–5 m</span></label>
+              <label class="opt"><input type="radio" name="tav" value="8"><span>5–8 m</span></label>
+              <label class="opt"><input type="radio" name="tav" value="9"><span>8 m felett</span></label>
+              <label class="opt"><input type="radio" name="tav" value="nemtudom"><span>Nem tudom</span></label>
+            </div>
+            <p class="form-note">A beszerelés alapára 3 méter csővezetékig szól, az ennél hosszabb szakasz méterenként külön számolódik.</p>
+          </div>
+
+          <p class="wiz__q">Hová folyhat a kondenzvíz? <span class="req">*</span></p>
+          <div class="opts opts--row">
+            <label class="opt"><input type="radio" name="kondenz" value="kifele" required><span>Kifelé, a szabadba</span></label>
+            <label class="opt"><input type="radio" name="kondenz" value="lefolyo"><span>Lefolyóba (fürdő, konyha)</span></label>
+            <label class="opt"><input type="radio" name="kondenz" value="nincs"><span>Nincs hová elvezetni</span></label>
+            <label class="opt"><input type="radio" name="kondenz" value="nemtudom"><span>Nem tudom</span></label>
+          </div>
+          <p class="form-note" data-show="ingatlan:lakas kondenz:kifele">Társasházban a homlokzatra csöpögtetés sokszor nem engedélyezett. Ilyenkor lefolyóba vezetjük, vagy kondenzvíz-porlasztót alkalmazunk. Ezt a felmérésen tisztázzuk.</p>
+          <p class="form-note" data-show="kondenz:nincs">Ha a kondenzvíz nem vezethető el, kondenzvíz-porlasztót alkalmazunk. Ez külön tételként szerepel az ajánlatban.</p>
+
+          <p class="wiz__q">Honnan kaphat áramot a kültéri egység, és milyen messze van az áramforrás? <span class="req">*</span></p>
+          <div class="opts opts--row">
+            <label class="opt"><input type="radio" name="aram" value="kozel" required><span>Van dugalj vagy elosztó a közelben (kb. 3 m-en belül)</span></label>
+            <label class="opt"><input type="radio" name="aram" value="10"><span>3–10 m-re</span></label>
+            <label class="opt"><input type="radio" name="aram" value="10+"><span>10 m-nél messzebb</span></label>
+            <label class="opt"><input type="radio" name="aram" value="nemtudom"><span>Nem tudom</span></label>
+          </div>
+          <p class="form-note" data-show="aram:10+">Az elektromos bekötés 10 méterig díjmentes, afelett külön díjat számolunk.</p>
+
+          <div class="cond" data-show="szolg:csere">
+            <p class="wiz__q">Mi legyen a régi készülékkel? <span class="req">*</span></p>
+            <div class="opts opts--row">
+              <label class="opt"><input type="radio" name="regi" value="leszerel" required><span>Leszerelés</span></label>
+              <label class="opt"><input type="radio" name="regi" value="elszallit"><span>Leszerelés és elszállítás</span></label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 5. lépés -->
+        <fieldset class="wiz__step" data-step>
+          <legend>Elérhetőség</legend>
+          <div class="field">
+            <label for="nev">Név <span class="req">*</span></label>
+            <input id="nev" name="nev" type="text" autocomplete="name" required>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="telefon">Telefonszám <span class="req">*</span></label>
+              <input id="telefon" name="telefon" type="tel" autocomplete="tel" inputmode="tel" placeholder="+36 20 123 4567" required>
+            </div>
+            <div class="field">
+              <label for="email">E-mail (nem kötelező)</label>
+              <input id="email" name="email" type="email" autocomplete="email">
+            </div>
+          </div>
+          <div class="field">
+            <label for="mikor">Mikorra szeretné?</label>
+            <select id="mikor" name="mikor">
+              <option value="">Válasszon…</option>
+              <option>Sürgős (1–2 héten belül)</option>
+              <option>1 hónapon belül</option>
+              <option>Később, csak érdeklődöm</option>
+            </select>
+          </div>
+          <div class="field" data-show="szolg:telepites|csere|athelyezes|javitas">
+            <label for="fotok">Fotó (nem kötelező)</label>
+            <input id="fotok" name="fotok" type="file" accept="image/*" multiple>
+            <p class="form-note">Egy fotó a falról, ahová a beltéri egység kerülne, és egy a kültéri egység helyéről, sokat pontosít az ajánlaton. A képeken ne legyen személy vagy rendszám.</p>
+          </div>
+          <label class="field field--check">
+            <input type="checkbox" name="hozzajarulas_adat" required>
+            <span>Elfogadom az <a href="adatkezeles.html" target="_blank" rel="noopener">Adatkezelési tájékoztatót</a>. <span class="req">*</span></span>
+          </label>
+        </fieldset>
+
+        <div class="wiz__nav">
+          <button class="btn btn--ghost" type="button" id="wizBack" hidden>Vissza</button>
+          <button class="btn" type="button" id="wizNext">Tovább</button>
+        </div>
+      </form>
+
+      <!-- Eredmény -->
+      <div class="wiz__result" id="wizResult" hidden>
+        <h2>Köszönjük, megkaptuk a kérését!</h2>
+        <div class="estimate" id="estimate"></div>
+        <h3>Amit megadott</h3>
+        <ul class="summary" id="summary"></ul>
+        <p class="form-note">Csaba hamarosan visszahívja a megadott telefonszámon. Ha sürgős, hívjon minket: <a href="tel:+36205422171">+36 20 542 2171</a>.</p>
+        <div class="btn-row mt-3">
+          <button class="btn btn--ghost" type="button" id="wizRestart">Új kitöltés (minta)</button>
+          <a class="btn" href="akciok.html">Akciós klímáink</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-sign" src="assets/img/arculat.jpg" alt="Támba Klíma – klímatelepítés és klímakarbantartás" width="360" height="206" loading="lazy">
+        <p class="mt-2">Klímatelepítés és klímakarbantartás Nyíregyházán és 50 km-es körzetében. Mosózsákos tisztítás, javítás, régi klíma csere.</p>
+      </div>
+      <div><h4>Menü</h4><ul>
+        <li><a href="szolgaltatasok.html">Szolgáltatások</a></li>
+        <li><a href="arak.html">Árak</a></li>
+        <li><a href="akciok.html">Akciók</a></li>
+        <li><a href="referenciak.html">Referenciák</a></li>
+        <li><a href="velemenyek.html">Vélemények</a></li>
+        <li><a href="gyik.html">GYIK</a></li>
+        <li><a href="kisokos.html">Kisokos</a></li>
+        <li><a href="rolunk.html">Rólunk</a></li>
+        <li><a href="kapcsolat.html">Kapcsolat</a></li>
+      </ul></div>
+      <div><h4>Elérhetőség</h4><ul>
+        <li><a href="tel:+36205422171">+36 20 542 2171</a></li>
+        <li><a href="mailto:tambaklima25@gmail.com">tambaklima25@gmail.com</a></li>
+        <li>Nyíregyháza, Borbánya</li>
+        <li>Nyitva: minden nap 6:00–18:00</li>
+      </ul></div>
+      <div><h4>Kövessen minket</h4><ul>
+        <li><a href="https://www.facebook.com/profile.php?id=61575370305790" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://www.google.com/maps/place/T%C3%A1mba-Kl%C3%ADma/@47.9307354,21.7482017,17z/data=!3m1!4b1!4m6!3m5!1s0x47389fb72ea61f1d:0x4b89e36f66e82550!8m2!3d47.9307354!4d21.7507766!16s%2Fg%2F11z7fxkdg5!5m1!1e1" target="_blank" rel="noopener">Google-profilunk</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> Támba Csaba e.v. · Adószám: 91028273-1-35</span>
+      <span><a href="aszf.html">ÁSZF</a> &nbsp;·&nbsp; <a href="adatkezeles.html">Adatkezelési tájékoztató</a> &nbsp;·&nbsp; <a href="impresszum.html">Impresszum</a></span>
+    </div>
+  </div>
+</footer>
+
+<div class="call-bar">
+  <a class="btn btn--block" href="tel:+36205422171">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1 .35 1.98.66 2.92a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.16-1.16a2 2 0 0 1 2.11-.45c.94.31 1.92.53 2.92.66A2 2 0 0 1 22 16.92z"/></svg>
+    Hívás: +36 20 542 2171
+  </a>
+</div>
+
+<button class="chat-fab" type="button" aria-label="Kérdése van? Segítünk">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+<div class="chat-pop" role="dialog" aria-label="Chat – hamarosan">
+  <h4>Kérdése van?</h4>
+  <p>A chatbot hamarosan itt segít. Addig hívjon minket – szívesen válaszolunk.</p>
+  <a class="btn btn--block" href="tel:+36205422171">+36 20 542 2171</a>
+  <button class="btn btn--ghost btn--block mt-2" type="button" data-chat-close>Bezárás</button>
+</div>
+
+<script src="assets/js/main.js" defer></script>
+<script>
+/* Ajánlatkérő varázsló – minta (nem küld el semmit) */
+(function () {
+  var form = document.getElementById("wiz");
+  var result = document.getElementById("wizResult");
+  var steps = [].slice.call(form.querySelectorAll("[data-step]"));
+  var bar = document.getElementById("wizBar");
+  var label = document.getElementById("wizLabel");
+  var back = document.getElementById("wizBack");
+  var next = document.getElementById("wizNext");
+  var cur = steps[0];
+  var err = document.createElement("p");
+  err.className = "wiz__err"; err.setAttribute("role", "alert"); err.hidden = true;
+  form.querySelector(".wiz__nav").before(err);
+
+  function val(name) { var f = form.elements[name]; return f ? f.value : ""; }
+
+  // data-show="mező:érték1|érték2 másikmező:érték" – minden feltételnek teljesülnie kell
+  function matches(el) {
+    return el.getAttribute("data-show").trim().split(/\s+/).every(function (c) {
+      var p = c.split(":");
+      return p[1].split("|").indexOf(val(p[0])) !== -1;
+    });
+  }
+
+  function apply() {
+    // 1) feltételes blokkok megjelenítése / elrejtése
+    [].forEach.call(form.querySelectorAll("[data-show]"), function (el) { el.hidden = !matches(el); });
+    // 2) a rejtett blokkok mezőit letiltjuk: nem kötelezők, nem kerülnek be az adatok közé
+    [].forEach.call(form.querySelectorAll("input, select, textarea"), function (f) { f.disabled = !!f.closest("[hidden]"); });
+    // 3) lépések és folyamatjelző
+    var vis = steps.filter(function (s) { return !s.hidden; });
+    if (vis.indexOf(cur) === -1) cur = vis[0];
+    var i = vis.indexOf(cur);
+    steps.forEach(function (s) { s.classList.toggle("is-current", s === cur); });
+    bar.style.width = ((i + 1) / vis.length * 100) + "%";
+    label.textContent = (i + 1) + ". lépés / " + vis.length + " – " + cur.querySelector("legend").textContent;
+    back.hidden = i === 0;
+    next.textContent = i === vis.length - 1 ? "Ajánlatot kérek" : "Tovább";
+  }
+
+  function valid() {
+    var fields = [].slice.call(cur.querySelectorAll("input, select, textarea"));
+    for (var k = 0; k < fields.length; k++) {
+      var f = fields[k];
+      if (!f.disabled && !f.checkValidity()) {
+        err.textContent = f.type === "checkbox" ? "Kérjük, fogadja el az adatkezelési tájékoztatót." : "Kérjük, töltse ki a *-gal jelölt kérdéseket.";
+        err.hidden = false;
+        var box = f.closest(".opts, .field, .field--check") || f;
+        box.scrollIntoView({ behavior: "smooth", block: "center" });
+        if (f.type !== "radio") f.focus({ preventScroll: true });
+        return false;
+      }
+    }
+    err.hidden = true;
+    return true;
+  }
+
+  function nextStep() {
+    if (!valid()) return;
+    var vis = steps.filter(function (s) { return !s.hidden; });
+    var i = vis.indexOf(cur);
+    if (i === vis.length - 1) { finish(); return; }
+    cur = vis[i + 1]; apply();
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  function prevStep() {
+    var vis = steps.filter(function (s) { return !s.hidden; });
+    var i = vis.indexOf(cur);
+    if (i > 0) { cur = vis[i - 1]; err.hidden = true; apply(); form.scrollIntoView({ behavior: "smooth", block: "start" }); }
+  }
+
+  function fmt(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " Ft"; }
+
+  // Szemléltető ársáv – a kitalált számok a dokumentumban leírt logikát követik
+  function estimate() {
+    var szolg = val("szolg"), db = parseInt(val("db"), 10) || 1, notes = [], low, high;
+    if (szolg === "karbantartas") {
+      if (db >= 3) return { label: "Előzetes ársáv", price: "Egyedi ár", notes: ["3 géptől személyre szabott ajánlatot adunk."] };
+      return { label: "Előzetes ár a karbantartásra", price: "kb. " + fmt(15000 * db), notes: ["Mosózsákos, vegyszeres fertőtlenítő tisztítás, alkalmanként 15 000 Ft / készülék."] };
+    }
+    if (szolg === "javitas") return { label: "Javítás", price: "Felmérés után", notes: ["A javítás díját a hiba megismerése után adjuk meg, a kiszállás díját telefonon egyeztetjük."] };
+    if (szolg === "nemtudom") return { label: "Tanácsadás", price: "Ingyenes visszahívás", notes: ["Segítünk kiválasztani a megfelelő készüléket és megmondjuk, mennyibe kerülne."] };
+    if (db >= 3) return { label: "Előzetes ársáv", price: "Egyedi ár", notes: ["3 géptől személyre szabott ajánlatot adunk, ezt felméréssel pontosítjuk."] };
+    var t = val("terulet");
+    low = (t === "22" || t === "35") ? 80000 : (t === "nemtudom" ? 80000 : 100000);
+    high = (t === "22" || t === "35") ? 80000 : 100000;
+    if (db === 2) { low += 60000; high += 60000; notes.push("Két beltéri egységes (multi-split) rendszer felára benne van."); }
+    var cso = val("szemben") === "igen" ? [0, 0] : ({ "5": [0, 2], "8": [2, 5], "9": [5, 10], "nemtudom": [0, 10] }[val("tav")] || [0, 10]);
+    low += cso[0] * 12000; high += cso[1] * 12000;
+    if (cso[1] > 0) notes.push("A távolságtól függően többlet csővezetékkel számolunk (12 000 Ft / méter).");
+    if (val("aram") === "10+") { high += 20000; notes.push("Az áramforrás 10 méternél messzebb van, ezért az elektromos bekötés külön díjat kaphat."); }
+    if (val("kondenz") === "nincs") { low += 15000; high += 15000; notes.push("Kondenzvíz-porlasztót alkalmazunk, ennek díja benne van az ársávban."); }
+    if (val("fal") === "beton") { high += 10000; notes.push("Vasbeton falnál az átfúrás nehezebb, ezért felárat számolhatunk."); }
+    if (val("regi")) { low += 20000; high += 20000; notes.push("A régi készülék leszerelése benne van" + (val("regi") === "elszallit" ? "; az elszállítás díját egyeztetjük." : ".")); }
+    if (val("emelet") === "3+" || val("kulteri") === "teto") notes.push("Nehezített hozzáférés esetén (magasság, állvány) külön díj lehet.");
+    high = Math.round(high * 1.1 / 1000) * 1000;
+    notes.push("A készülék ára ezen felül értendő. Az akciós készülékeink árát az Akciók oldalon találja.");
+    return { label: "Előzetes ársáv a szerelésre", price: "kb. " + fmt(low) + " – " + fmt(high), notes: notes };
+  }
+
+  var LABELS = [
+    ["szolg", "Szolgáltatás"], ["db", "Készülékek száma"], ["telepules", "Település"], ["ingatlan", "Ingatlan"],
+    ["hozzajarulas", "Társasházi hozzájárulás"], ["emelet", "Emelet"], ["allapot", "Az épület állapota"], ["idoszak", "Mikor végezhető a munka"],
+    ["terulet", "Alapterület"], ["haszn", "Használat"], ["nap", "Napsütés"], ["marka", "Márka"], ["kor", "Készülék kora"],
+    ["utolso", "Utolsó karbantartás"], ["hiba", "Probléma"], ["kulteri", "Kültéri egység"],
+    ["fal", "Fal anyaga"], ["szemben", "Kültéri egység a fal másik oldalán"], ["tav", "Egységek távolsága"],
+    ["kondenz", "Kondenzvíz"], ["aram", "Áramforrás"], ["regi", "Régi készülék"], ["mikor", "Mikorra"], ["nev", "Név"], ["telefon", "Telefon"], ["email", "E-mail"]
+  ];
+  function shown(name) {
+    var f = form.elements[name];
+    if (!f) return "";
+    var node = f.length !== undefined && f.type === undefined ? f[0] : f;
+    if (node.disabled) return "";
+    if (node.type === "radio") { var c = form.querySelector('[name="' + name + '"]:checked'); if (!c) return ""; var sp = [].slice.call(c.parentNode.querySelectorAll("span")).filter(function (s) { return !s.hidden; })[0]; return sp ? sp.textContent : ""; }
+    if (node.tagName === "SELECT") return node.value ? node.options[node.selectedIndex].textContent : "";
+    return node.value;
+  }
+
+  function finish() {
+    var e = estimate();
+    document.getElementById("estimate").innerHTML = "";
+    var box = document.getElementById("estimate");
+    [["estimate__label", e.label], ["estimate__price", e.price]].forEach(function (x) { var p = document.createElement("p"); p.className = x[0]; p.textContent = x[1]; box.appendChild(p); });
+    var ul = document.createElement("ul");
+    e.notes.concat(["Az ársáv tájékoztató jellegű, a végleges ár a helyszíni felmérés után alakul ki. (Minta: a számok szemléltetők.)"]).forEach(function (n) { var li = document.createElement("li"); li.textContent = n; ul.appendChild(li); });
+    box.appendChild(ul);
+    var sum = document.getElementById("summary"); sum.innerHTML = "";
+    LABELS.forEach(function (l) {
+      var v = shown(l[0]); if (!v) return;
+      var li = document.createElement("li"), b = document.createElement("b"), s = document.createElement("span");
+      b.textContent = l[1]; s.textContent = v; li.appendChild(b); li.appendChild(s); sum.appendChild(li);
+    });
+    form.hidden = true; result.hidden = false;
+    result.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  form.addEventListener("change", function () { err.hidden = true; apply(); });
+  form.addEventListener("keydown", function (ev) { if (ev.key === "Enter" && ev.target.tagName !== "TEXTAREA") { ev.preventDefault(); nextStep(); } });
+  next.addEventListener("click", nextStep);
+  back.addEventListener("click", prevStep);
+  document.getElementById("wizRestart").addEventListener("click", function () {
+    form.reset(); result.hidden = true; form.hidden = false; cur = steps[0]; apply(); window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  apply();
+})();
+</script>
+</body>
+</html>
