@@ -1,0 +1,5 @@
+{
+  "functions": {
+    "api/ajanlat.js": { "maxDuration": 30 }
+  }
+}

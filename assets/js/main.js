@@ -174,7 +174,7 @@
           if (!a || !a.kep) return;
           var link = document.createElement("a");
           link.className = "promo";
-          link.href = a.link || "kapcsolat.html";
+          link.href = a.link || "ajanlatkeres.html";
           if (/^https?:/.test(link.href)) { link.target = "_blank"; link.rel = "noopener"; }
           var img = document.createElement("img");
           img.src = a.kep;

@@ -138,6 +138,17 @@ p + p { margin-top: 0.85rem; }
 }
 .skip-link:focus { top: 8px; }
 
+/* ---------- Felső ajánlatkérő sáv ---------- */
+.quote-bar {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .15rem .7rem;
+  padding: .5rem 1rem; text-align: center; font-size: .92rem; line-height: 1.3;
+  background: var(--grad-cta); color: #fff; text-decoration: none;
+}
+.quote-bar:hover { color: #fff; background-image: var(--grad-cta-hover); text-decoration: none; }
+.quote-bar:hover strong { text-decoration: underline; }
+.quote-bar strong { font-family: var(--font-display); font-weight: 700; white-space: nowrap; }
+.quote-bar:focus-visible { outline: 3px solid var(--accent-yellow); outline-offset: -3px; }
+
 /* ---------- Gombok ---------- */
 .btn {
   --_bg: var(--grad-cta);

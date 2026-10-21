@@ -3,8 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ajánlatkérés – minta | Támba Klíma</title>
-<meta name="robots" content="noindex, nofollow">
+<title>Ajánlatkérés – klímatelepítés, karbantartás | Támba Klíma</title>
+<meta name="description" content="Kérjen ajánlatot klímatelepítésre, karbantartásra, javításra vagy cserére Nyíregyházán. Pár gyors kérdés után Csaba visszahívja, a helyszíni felmérés a közelebbi településeken ingyenes.">
+<link rel="canonical" href="https://tambaklima.hu/ajanlatkeres.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="hu_HU">
+<meta property="og:site_name" content="Támba Klíma">
+<meta property="og:title" content="Ajánlatkérés | Támba Klíma">
+<meta property="og:description" content="Pár gyors kérdés, és Csaba visszahívja. Klímatelepítés, karbantartás, javítás Nyíregyházán.">
+<meta property="og:url" content="https://tambaklima.hu/ajanlatkeres.html">
+<meta property="og:image" content="https://tambaklima.hu/assets/img/arculat.jpg">
 <meta name="theme-color" content="#073b73">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,12 +20,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
 <style>
-  /* Ajánlatkérő varázsló – minta */
+  /* Ajánlatkérő varázsló */
   .wiz [hidden], .wiz__result [hidden] { display: none !important; }
-  .demo-banner {
-    background: #fff7e0; border: 1px solid #f2d98a; color: #5a4300;
-    border-radius: var(--radius-sm); padding: .8rem 1rem; margin: 0 0 1.2rem; font-size: .92rem;
-  }
   .wiz__progress { margin-bottom: 1.4rem; }
   .wiz__bar { height: 8px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
   .wiz__bar span { display: block; height: 100%; width: 0; background: var(--grad-cta); border-radius: 999px; transition: width .3s ease; }
@@ -53,10 +57,6 @@
   .wiz__err { margin: 1rem 0 0; color: #9b2c22; font-weight: 600; font-size: .92rem; }
   .wiz__result { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: 1.6rem; }
   .wiz__result h2 { margin-top: 0; }
-  .estimate { background: var(--cold-100); border-left: 5px solid var(--cold-500); border-radius: var(--radius-sm); padding: 1rem 1.2rem; margin: 1rem 0 1.4rem; }
-  .estimate__label { margin: 0; font-size: .88rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
-  .estimate__price { margin: .2rem 0 .5rem; font-family: var(--font-display); font-weight: 800; font-size: clamp(1.4rem, 4vw, 1.9rem); color: var(--cold-900); }
-  .estimate ul { margin: .4rem 0 0; padding-left: 1.2rem; font-size: .92rem; color: var(--ink-soft); }
   .summary { list-style: none; padding: 0; margin: .6rem 0 1rem; display: grid; gap: .35rem; }
   .summary li { display: flex; gap: .6rem; font-size: .95rem; border-bottom: 1px solid var(--line); padding-bottom: .35rem; }
   .summary b { flex: 0 0 11rem; color: var(--ink-soft); font-weight: 600; }
@@ -104,16 +104,15 @@
     <div class="container">
       <p class="breadcrumb"><a href="index.html">Főoldal</a> / Ajánlatkérés</p>
       <h1>Kérjen ajánlatot</h1>
-      <p>Pár gyors kérdés, és előzetes ársávot is mutatunk. A pontos árat a helyszíni felmérés után adjuk meg.</p>
+      <p>Pár gyors kérdés, és Csaba visszahívja. A pontos árat a helyszíni felmérés után adjuk meg, ez a közelebbi településeken díjmentes.</p>
     </div>
   </section>
 
   <section class="section section--cold">
     <div class="container" style="max-width:780px">
 
-      <p class="demo-banner"><strong>MINTA:</strong> ez egy működő bemutató, nem küld el semmit. Kattintson végig különböző válaszokkal, és nézze meg, hogyan változnak a kérdések (pl. családi ház vagy társasház, telepítés vagy karbantartás). Az ársáv számai kitalált, szemléltető értékek.</p>
-
       <form class="form-card wiz" id="wiz" novalidate>
+        <input type="text" name="weboldal" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <div class="wiz__progress" aria-live="polite">
           <div class="wiz__bar"><span id="wizBar"></span></div>
           <p class="wiz__label" id="wizLabel"></p>
@@ -406,12 +405,11 @@
       <!-- Eredmény -->
       <div class="wiz__result" id="wizResult" hidden>
         <h2>Köszönjük, megkaptuk a kérését!</h2>
-        <div class="estimate" id="estimate"></div>
         <h3>Amit megadott</h3>
         <ul class="summary" id="summary"></ul>
         <p class="form-note">Csaba hamarosan visszahívja a megadott telefonszámon. Ha sürgős, hívjon minket: <a href="tel:+36205422171">+36 20 542 2171</a>.</p>
         <div class="btn-row mt-3">
-          <button class="btn btn--ghost" type="button" id="wizRestart">Új kitöltés (minta)</button>
+          <button class="btn btn--ghost" type="button" id="wizRestart">Új ajánlatkérés</button>
           <a class="btn" href="akciok.html">Akciós klímáink</a>
         </div>
       </div>
@@ -436,6 +434,7 @@
         <li><a href="gyik.html">GYIK</a></li>
         <li><a href="kisokos.html">Kisokos</a></li>
         <li><a href="rolunk.html">Rólunk</a></li>
+        <li><a href="ajanlatkeres.html">Ajánlatkérés</a></li>
         <li><a href="kapcsolat.html">Kapcsolat</a></li>
       </ul></div>
       <div><h4>Elérhetőség</h4><ul>
@@ -474,166 +473,6 @@
 </div>
 
 <script src="assets/js/main.js" defer></script>
-<script>
-/* Ajánlatkérő varázsló – minta (nem küld el semmit) */
-(function () {
-  var form = document.getElementById("wiz");
-  var result = document.getElementById("wizResult");
-  var steps = [].slice.call(form.querySelectorAll("[data-step]"));
-  var bar = document.getElementById("wizBar");
-  var label = document.getElementById("wizLabel");
-  var back = document.getElementById("wizBack");
-  var next = document.getElementById("wizNext");
-  var cur = steps[0];
-  var err = document.createElement("p");
-  err.className = "wiz__err"; err.setAttribute("role", "alert"); err.hidden = true;
-  form.querySelector(".wiz__nav").before(err);
-
-  // Egy mező aktuális értéke. A rejtett (letiltott) mezőt üresnek vesszük, így egy korábbi útvonal
-  // válasza nem szivárog át (pl. kondenzvíz, ha a kérdés már nem látszik).
-  function val(name) {
-    var f = form.elements[name];
-    if (!f) return "";
-    var nodes = f.length !== undefined && f.type === undefined ? [].slice.call(f) : [f];
-    return nodes.every(function (n) { return n.disabled; }) ? "" : f.value;
-  }
-
-  // data-show="mező:érték1|érték2 másikmező:érték" – egy csoporton belül minden feltételnek teljesülnie kell;
-  // a ";"-vel elválasztott csoportok közül elég az egyik (VAGY).
-  function matches(el) {
-    return el.getAttribute("data-show").split(";").some(function (group) {
-      return group.trim().split(/\s+/).every(function (c) {
-        var p = c.split(":");
-        return p[1].split("|").indexOf(val(p[0])) !== -1;
-      });
-    });
-  }
-
-  function apply() {
-    // 1) feltételes blokkok megjelenítése / elrejtése, 2) a rejtett blokkok mezőinek letiltása
-    // (nem kötelezők, nem kerülnek be az adatok közé). Háromszor futtatjuk, hogy a láncolt feltételek is beálljanak.
-    for (var pass = 0; pass < 3; pass++) {
-      [].forEach.call(form.querySelectorAll("[data-show]"), function (el) { el.hidden = !matches(el); });
-      [].forEach.call(form.querySelectorAll("input, select, textarea"), function (f) { f.disabled = !!f.closest("[hidden]"); });
-    }
-    // 3) lépések és folyamatjelző
-    var vis = steps.filter(function (s) { return !s.hidden; });
-    if (vis.indexOf(cur) === -1) cur = vis[0];
-    var i = vis.indexOf(cur);
-    steps.forEach(function (s) { s.classList.toggle("is-current", s === cur); });
-    bar.style.width = ((i + 1) / vis.length * 100) + "%";
-    label.textContent = (i + 1) + ". lépés / " + vis.length + " – " + cur.querySelector("legend").textContent;
-    back.hidden = i === 0;
-    next.textContent = i === vis.length - 1 ? "Ajánlatot kérek" : "Tovább";
-  }
-
-  function valid() {
-    var fields = [].slice.call(cur.querySelectorAll("input, select, textarea"));
-    for (var k = 0; k < fields.length; k++) {
-      var f = fields[k];
-      if (!f.disabled && !f.checkValidity()) {
-        err.textContent = f.type === "checkbox" ? "Kérjük, fogadja el az adatkezelési tájékoztatót." : "Kérjük, töltse ki a *-gal jelölt kérdéseket.";
-        err.hidden = false;
-        var box = f.closest(".opts, .field, .field--check") || f;
-        box.scrollIntoView({ behavior: "smooth", block: "center" });
-        if (f.type !== "radio") f.focus({ preventScroll: true });
-        return false;
-      }
-    }
-    err.hidden = true;
-    return true;
-  }
-
-  function nextStep() {
-    if (!valid()) return;
-    var vis = steps.filter(function (s) { return !s.hidden; });
-    var i = vis.indexOf(cur);
-    if (i === vis.length - 1) { finish(); return; }
-    cur = vis[i + 1]; apply();
-    form.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-  function prevStep() {
-    var vis = steps.filter(function (s) { return !s.hidden; });
-    var i = vis.indexOf(cur);
-    if (i > 0) { cur = vis[i - 1]; err.hidden = true; apply(); form.scrollIntoView({ behavior: "smooth", block: "start" }); }
-  }
-
-  function fmt(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " Ft"; }
-
-  // Szemléltető ársáv – a kitalált számok a dokumentumban leírt logikát követik
-  function estimate() {
-    var szolg = val("szolg"), db = parseInt(val("db"), 10) || 1, notes = [], low, high;
-    if (szolg === "karbantartas") {
-      if (db >= 3) return { label: "Előzetes ársáv", price: "Egyedi ár", notes: ["3 géptől személyre szabott ajánlatot adunk."] };
-      return { label: "Előzetes ár a karbantartásra", price: "kb. " + fmt(15000 * db), notes: ["Mosózsákos, vegyszeres fertőtlenítő tisztítás, alkalmanként 15 000 Ft / készülék."] };
-    }
-    if (szolg === "javitas") return { label: "Javítás", price: "Felmérés után", notes: ["A javítás díját a hiba megismerése után adjuk meg, a kiszállás díját telefonon egyeztetjük."] };
-    if (szolg === "nemtudom") return { label: "Tanácsadás", price: "Ingyenes visszahívás", notes: ["Segítünk kiválasztani a megfelelő készüléket és megmondjuk, mennyibe kerülne."] };
-    if (db >= 3) return { label: "Előzetes ársáv", price: "Egyedi ár", notes: ["3 géptől személyre szabott ajánlatot adunk, ezt felméréssel pontosítjuk."] };
-    var t = val("terulet") || "nemtudom"; // áthelyezésnél nincs alapterület-kérdés
-    if (szolg === "athelyezes") notes.push("Az áthelyezés díja a készülék típusától függ, ezt a felmérés után pontosítjuk.");
-    if (szolg === "csere" && val("ugyanoda") === "igen") notes.push("A meglévő bekötést a helyszínen ellenőrizzük, szükség esetén a pontos ár változhat.");
-    low =(t === "22" || t === "35") ? 80000 : (t === "nemtudom" ? 80000 : 100000);
-    high = (t === "22" || t === "35") ? 80000 : 100000;
-    if (db === 2) { low += 60000; high += 60000; notes.push("Két beltéri egységes (multi-split) rendszer felára benne van."); }
-    var cso = (val("szemben") === "igen" || !val("szemben")) ? [0, 0] : ({ "5": [0, 2], "8": [2, 5], "9": [5, 10], "nemtudom": [0, 10] }[val("tav")] || [0, 10]);
-    low += cso[0] * 12000; high += cso[1] * 12000;
-    if (cso[1] > 0) notes.push("A távolságtól függően többlet csővezetékkel számolunk (12 000 Ft / méter).");
-    if (val("aram") === "10+") { high += 20000; notes.push("Az áramforrás 10 méternél messzebb van, ezért az elektromos bekötés külön díjat kaphat."); }
-    if (val("kondenz") === "nincs") { low += 15000; high += 15000; notes.push("Kondenzvíz-porlasztót alkalmazunk, ennek díja benne van az ársávban."); }
-    if (val("fal") === "beton") { high += 10000; notes.push("Vasbeton falnál az átfúrás nehezebb, ezért felárat számolhatunk."); }
-    if (val("regi")) { low += 20000; high += 20000; notes.push("A régi készülék leszerelése benne van" + (val("regi") === "elszallit" ? "; az elszállítás díját egyeztetjük." : ".")); }
-    if (val("emelet") === "3+" || val("kulteri") === "teto") notes.push("Nehezített hozzáférés esetén (magasság, állvány) külön díj lehet.");
-    high = Math.round(high * 1.1 / 1000) * 1000;
-    notes.push("A készülék ára ezen felül értendő. Az akciós készülékeink árát az Akciók oldalon találja.");
-    return { label: "Előzetes ársáv a szerelésre", price: "kb. " + fmt(low) + " – " + fmt(high), notes: notes };
-  }
-
-  var LABELS = [
-    ["szolg", "Szolgáltatás"], ["db", "Készülékek száma"], ["telepules", "Település"], ["ingatlan", "Ingatlan"],
-    ["ugyanoda", "Új készülék a régi helyén"], ["hozzajarulas", "Társasházi hozzájárulás"], ["emelet", "Emelet"], ["allapot", "Az épület állapota"], ["idoszak", "Mikor végezhető a munka"],
-    ["terulet", "Alapterület"], ["haszn", "Használat"], ["nap", "Napsütés"], ["marka", "Márka"], ["kor", "Készülék kora"],
-    ["utolso", "Utolsó karbantartás"], ["hiba", "Probléma"], ["kulteri", "Kültéri egység"],
-    ["fal", "Fal anyaga"], ["szemben", "Kültéri egység ugyanazon a falon"], ["tav", "Egységek távolsága"],
-    ["kondenz", "Kondenzvíz"], ["aram", "Áramforrás"], ["regi", "Régi készülék"], ["mikor", "Mikorra"], ["nev", "Név"], ["telefon", "Telefon"], ["email", "E-mail"]
-  ];
-  function shown(name) {
-    var f = form.elements[name];
-    if (!f) return "";
-    var node = f.length !== undefined && f.type === undefined ? f[0] : f;
-    if (node.disabled) return "";
-    if (node.type === "radio") { var c = form.querySelector('[name="' + name + '"]:checked'); if (!c) return ""; var sp = [].slice.call(c.parentNode.querySelectorAll("span")).filter(function (s) { return !s.hidden; })[0]; return sp ? sp.textContent : ""; }
-    if (node.tagName === "SELECT") return node.value ? node.options[node.selectedIndex].textContent : "";
-    return node.value;
-  }
-
-  function finish() {
-    var e = estimate();
-    document.getElementById("estimate").innerHTML = "";
-    var box = document.getElementById("estimate");
-    [["estimate__label", e.label], ["estimate__price", e.price]].forEach(function (x) { var p = document.createElement("p"); p.className = x[0]; p.textContent = x[1]; box.appendChild(p); });
-    var ul = document.createElement("ul");
-    e.notes.concat(["Az ársáv tájékoztató jellegű, a végleges ár a helyszíni felmérés után alakul ki. (Minta: a számok szemléltetők.)"]).forEach(function (n) { var li = document.createElement("li"); li.textContent = n; ul.appendChild(li); });
-    box.appendChild(ul);
-    var sum = document.getElementById("summary"); sum.innerHTML = "";
-    LABELS.forEach(function (l) {
-      var v = shown(l[0]); if (!v) return;
-      var li = document.createElement("li"), b = document.createElement("b"), s = document.createElement("span");
-      b.textContent = l[1]; s.textContent = v; li.appendChild(b); li.appendChild(s); sum.appendChild(li);
-    });
-    form.hidden = true; result.hidden = false;
-    result.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  form.addEventListener("change", function () { err.hidden = true; apply(); });
-  form.addEventListener("keydown", function (ev) { if (ev.key === "Enter" && ev.target.tagName !== "TEXTAREA") { ev.preventDefault(); nextStep(); } });
-  next.addEventListener("click", nextStep);
-  back.addEventListener("click", prevStep);
-  document.getElementById("wizRestart").addEventListener("click", function () {
-    form.reset(); result.hidden = true; form.hidden = false; cur = steps[0]; apply(); window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-  apply();
-})();
-</script>
+<script src="assets/js/ajanlatkeres.js" defer></script>
 </body>
 </html>
