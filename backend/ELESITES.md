@@ -20,7 +20,7 @@ A projekt jelenleg az `ajanlatkero` ágon van. A `main` (az éles oldal) addig n
 2. **Bővítmények → Apps Script**. Töröld a kódot, másold be a `backend/Code.gs` teljes tartalmát, **Mentés**.
 3. A projekt időzónája: Apps Script → **Projektbeállítások** (fogaskerék) → *Időzóna* → **Europe/Budapest**.
 4. Függvénylista → **`beallitas`** → **Futtatás**. Engedélyek: *Engedélyek áttekintése* → a fiókod → *Speciális* →
-   *Tovább a projekthez* → *Engedélyezés* (Táblázatok, Drive, Gmail, Naptár, külső kérés).
+   *Tovább a projekthez* → *Engedélyezés* (Táblázatok, Drive, Gmail, Naptár).
    A **Végrehajtási napló**ban megjelenik a **titok**. Másold ki.
 5. **`proba`** → **Futtatás**: új sor az **Ajánlatkérések** munkalapon, e-mail az értesítési címre, Naptár-esemény
    („Visszahívás: Teszt Elek …”). Ez egy kitalált ajánlatkérés. A sort, az eseményt és a Drive-mappa fájlját később töröld.
