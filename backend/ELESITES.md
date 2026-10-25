@@ -1,62 +1,92 @@
 # Ajánlatkérő űrlap élesítése (Google Táblázat + Apps Script + Vercel)
 
-Az űrlap (`ajanlatkeres.html`) a `/api/ajanlat` Vercel-függvényen át küld a Google Apps Scriptnek,
-az pedig a Csaba Google-fiókjában lévő táblázatba ír, a fotókat a Drive-ra menti, és e-mailt küld Csabának.
-A vevő **semmilyen árat nem lát**: az ár csak a táblázatban, Csaba számára jelenik meg (javasolt ár).
+Az űrlap (`ajanlatkeres.html`) a `/api/ajanlat` Vercel-függvényen át küld a Google Apps Scriptnek.
+Az Apps Script a táblázatba új sort ír, a fotókat a Drive-ra menti, e-mailt küld Csabának
+(kattintható telefonszámmal), és Naptár-eseményt vesz fel a visszahívásra.
+A vevő **semmilyen árat nem lát**. A javasolt ár számítása (Szabályok munkalap, képletek) későbbi lépés,
+a **Javasolt ár** oszlop addig üres.
 
-> **Jelszót ne kérj Csabától.** A beállításhoz két lépésnek kell Csaba bejelentkezett fiókjában történnie
-> (a szkript engedélyezése és az üzembe helyezés). Ezt Csabi maga teszi meg, te telefonon vagy képernyőmegosztáson
-> végigvezeted, 10–15 perc. Így a Google-fiókja (levelezés, Drive, Google Cégprofil) nem kerül hozzád.
+## Menetrend
 
-## 1. A táblázat (Csaba fiókjában)
-1. Csaba belép a Google-fiókjába, és új Google Táblázatot hoz létre. Név: **Támba Klíma – ajánlatkérések**.
-2. **Megosztás** → add hozzá a saját Google-fiókodat **Szerkesztőként** (így később te is tudod karbantartani).
+1. **Teszt a saját Google-fiókodban** (1–2. szakasz), a Vercel **Preview** környezetével.
+2. **Átadás Csabinak másolattal** (3. szakasz): ő a saját fiókjában másolatot készít, engedélyezi, üzembe helyezi.
+3. **Élesítés** (4. szakasz): a Vercel **Production** környezetébe az ő URL-je és titka kerül, az ág bekerül a `main`-be.
 
-## 2. Az Apps Script
-1. A táblázatban: **Bővítmények → Apps Script**.
-2. Töröld a meglévő kódot, és másold be a `backend/Code.gs` teljes tartalmát. **Mentés** (🖫).
-3. A felső függvénylistából válaszd a **`beallitas`** függvényt, majd **Futtatás**.
-   - Engedélyt kér (Táblázatok, Drive, Gmail, külső kérés). Csaba kattintson: *Engedélyek áttekintése* → a saját fiókja →
-     *Speciális* → *Tovább a projekthez (nem biztonságos)* → *Engedélyezés*. (A figyelmeztetés azért jelenik meg, mert
-     a szkriptet nem a Google ellenőrizte. A szkript a sajátja.)
-   - A futás után a **Végrehajtási napló**ban megjelenik a **titok** (hosszú karaktersor). **Másold ki**, a Vercelhez kell.
-4. Válaszd a **`proba`** függvényt, majd **Futtatás**: az **Ajánlatkérések** munkalapon új sor jelenik meg, és Csaba
-   e-mailben értesítést kap. (Ez egy kitalált Teszt Elek ajánlatkérés. A sort később töröld.)
-5. **Üzembe helyezés → Új üzembe helyezés** → fogaskerék → **Webalkalmazás**:
-   - Leírás: `ajánlatkérés v1`
-   - **Futtatás mint: Én (Csaba e-mail-címe)**
-   - **Hozzáférés: Bárki**
-   - **Üzembe helyezés** → másold ki a **Webalkalmazás URL**-t (`https://script.google.com/macros/s/…/exec`).
+A projekt jelenleg az `ajanlatkero` ágon van. A `main` (az éles oldal) addig nem változik, amíg te össze nem fésülöd.
 
-## 3. Vercel
-Vercel → a projekt → **Settings → Environment Variables**, két új változó (Production, Preview, Development):
+## 1. A te tesztpéldányod (saját Google-fiók)
 
-| Név | Érték |
+1. Új Google Táblázat: **sheets.new**, név: *Támba Klíma – ajánlatkérések (teszt)*.
+2. **Bővítmények → Apps Script**. Töröld a kódot, másold be a `backend/Code.gs` teljes tartalmát, **Mentés**.
+3. A projekt időzónája: Apps Script → **Projektbeállítások** (fogaskerék) → *Időzóna* → **Europe/Budapest**.
+4. Függvénylista → **`beallitas`** → **Futtatás**. Engedélyek: *Engedélyek áttekintése* → a fiókod → *Speciális* →
+   *Tovább a projekthez* → *Engedélyezés* (Táblázatok, Drive, Gmail, Naptár, külső kérés).
+   A **Végrehajtási napló**ban megjelenik a **titok**. Másold ki.
+5. **`proba`** → **Futtatás**: új sor az **Ajánlatkérések** munkalapon, e-mail az értesítési címre, Naptár-esemény
+   („Visszahívás: Teszt Elek …”). Ez egy kitalált ajánlatkérés. A sort, az eseményt és a Drive-mappa fájlját később töröld.
+6. **Üzembe helyezés → Új üzembe helyezés → Webalkalmazás**: *Futtatás mint: Én*, *Hozzáférés: Bárki*. Másold ki az URL-t.
+7. **Vercel → Settings → Environment Variables**: `APPS_SCRIPT_URL` és `APPS_SCRIPT_SECRET`, **csak a Preview** környezetre.
+8. Pushold az ágat: `git push -u origin ajanlatkero`. A Vercel külön tesztcímet épít (Deployments → az ág → Visit).
+   Előfordulhat, hogy a Preview-hoz Vercel-bejelentkezés kell, ez normális.
+9. A tesztcímen az `ajanlatkeres.html` oldalon tölts ki egy próbát fotóval. Ellenőrizd: sor, fotólink, e-mail, Naptár.
+
+## 2. Mit érdemes tesztelni
+
+- Különböző útvonalak: telepítés társasházba és családi házba, karbantartás, csere ugyanoda, csere máshová, áthelyezés.
+- Fotó nélkül és fotóval. Telefonról is.
+- Hiba esetén: Vercel → Logs (`ajanlat:` sorok), Apps Script → **Végrehajtások**.
+
+## 3. Átadás Csabinak (másolattal)
+
+A script a **saját fiókjában** fusson, ezért nem a hozzáférést adod át, hanem ő készít másolatot:
+
+1. Oszd meg a tesztpéldányt Csabával (Megosztás → az e-mail-címe → *Megtekintő*), vagy másold a táblázat linkjét.
+2. Csabi a saját fiókjában megnyitja, majd **Fájl → Másolat készítése**. (A hozzá kötött script is átmásolódik.)
+   Név: *Támba Klíma – ajánlatkérések*. A másolat a teste, az övé.
+3. A másolatban: **Bővítmények → Apps Script**, a projekt időzónája legyen *Europe/Budapest*.
+4. **`beallitas`** → **Futtatás** (engedélyezés a saját fiókjával). Ez létrehozza az ő titkát, az ő Drive-mappáját,
+   és az értesítési cím az ő e-mail-címe lesz. A naplóból másold ki az új titkot.
+5. **`proba`** → **Futtatás**: nála jelenjen meg a sor, az e-mail és a Naptár-esemény. Töröld a próbasort.
+6. **Üzembe helyezés → Új üzembe helyezés → Webalkalmazás**: *Futtatás mint: Én*, *Hozzáférés: Bárki*. URL kimásolása.
+7. Megosztás: a táblázatot és a Drive-mappát oszd meg a saját fiókoddal **Szerkesztőként**.
+
+Ha ezt Csabi kényelmesebben egy képernyőmegosztás mellett csinálja, a jelszavát akkor sem kell elkérned.
+
+## 4. Élesítés
+
+1. **Vercel → Settings → Environment Variables**: az `APPS_SCRIPT_URL` és `APPS_SCRIPT_SECRET` **Production** értéke az ő
+   másolatának URL-je és titka.
+2. Fésüld össze az ágat: `git checkout main`, `git merge ajanlatkero`, `git push`. (A Production üzembe helyezés a
+   változók után indul, így rögtön használja őket.)
+3. Élő teszt a `https://tambaklima.hu/ajanlatkeres.html` oldalon. Töröld a próbasorokat, -fotókat és -eseményeket.
+
+## 5. Később
+
+- **Javasolt ár:** külön **Szabályok** munkalap (alapár kW szerint, csővezeték Ft/m, falátfúrás, kiszállás településenként,
+  porlasztó stb.), a **Javasolt ár** oszlop képletei innen számolnak, az e-mail is kiírja. Csaba értékeit kell hozzá bekérni.
+- A **Státusz** oszlop: Új → Visszahívva → Felmérés egyeztetve → Ajánlat kiküldve → Elfogadva / Elvetve.
+- A Kapcsolat oldalról a régi űrlap kivétele (az Adatkezelési tájékoztató 2.1. pontját és a FormSubmitot is ekkor ki kell venni).
+- Az Adatkezelési tájékoztató **megőrzési ideje** (4. pont, jelenleg „[pl. 12] hónap”).
+- AppSheet-próba (telefonos lista), Looker Studio irányítópult, Gemini-vázlat és PDF-ajánlat.
+- A `Code.gs` módosítása után: **Üzembe helyezés → Üzembe helyezések kezelése → ✎ → Új verzió**, különben az élő URL
+  a régi kódot futtatja.
+
+## Beállítások a Script tulajdonságokban (Apps Script → Projektbeállítások → Script-tulajdonságok)
+
+| Név | Jelentés |
 |---|---|
-| `APPS_SCRIPT_URL` | az Apps Script webalkalmazás URL-je |
-| `APPS_SCRIPT_SECRET` | a `beallitas` naplójában kapott titok |
-
-Utána **Deployments → (legutóbbi) → ⋯ → Redeploy**, hogy a változók érvénybe lépjenek.
-
-## 4. Kipróbálás
-1. Nyisd meg a `https://tambaklima.hu/ajanlatkeres.html` oldalt, tölts ki egy próbát (adj meg egy fotót is).
-2. Ellenőrizd: új sor a táblázatban, a fotó linkje a sorban, Csaba megkapta az e-mailt.
-3. Töröld a próbasorokat (a `proba` és a saját próbád) és a Drive-ból a próbafotókat.
-4. A Drive-mappa (**Támba Klíma – ajánlatkérések fotói**) megosztható veled megtekintőként, hogy te is lásd a fotókat.
-
-## 5. Utána
-- A **Javasolt ár (Ft)** oszlopba kerülnek a képletek. Terv: külön **Szabályok** munkalap a díjakkal (alapár kW szerint,
-  csővezeték Ft/m, falátfúrás, kiszállás településenként, porlasztó stb.), a sorok képlettel számolnak innen.
-  Csaba a **Státusz** oszlopban követi: Új → Visszahívva → Felmérés egyeztetve → Ajánlat kiküldve → Elfogadva / Elvetve.
-- A Kapcsolat oldalról a régi kapcsolati űrlapot a sikeres éles teszt után le lehet venni, csak egy hivatkozás marad az
-  Ajánlatkérés oldalra (az Adatkezelési tájékoztató 2.1. pontját és a FormSubmit feldolgozót ekkor ki kell venni).
-- Az Adatkezelési tájékoztató **megőrzési idejét** (4. pont, jelenleg „[pl. 12] hónap”) véglegesíteni kell.
-- Ha módosítod a `Code.gs`-t: az Apps Scriptben **Üzembe helyezés → Üzembe helyezések kezelése → ✎ → Új verzió**,
-  különben az élő URL a régi kódot futtatja.
+| `SECRET` | közös titok a Vercel `APPS_SCRIPT_SECRET` változójával |
+| `NOTIFY_EMAIL` | ide megy az értesítő e-mail (alapértelmezés: a fiók tulajdonosa) |
+| `FOLDER_ID` | a fotók Drive-mappája |
+| `NAPTAR` | `igen` (alapérték) vagy `nem`: ne hozzon létre naptáreseményt |
+| `SZAMLALO` | az ajánlatkérés-azonosító számlálója |
 
 ## Hibakeresés
-- **Az űrlap „nem sikerült elküldeni” hibát ad:** Vercel → a projekt → **Logs**: `ajanlat:` kezdetű sorok.
-  „hiányzó környezeti változó” → hiányzik az `APPS_SCRIPT_URL` / `APPS_SCRIPT_SECRET`, vagy nem volt redeploy.
-  „az Apps Script hibát adott … hitelesites” → a két helyen a titok nem egyezik.
-- **Nincs e-mail:** Apps Script → **Végrehajtások** menü; Gmail napi küldési korlát (kb. 100 üzenet) még messze van.
-- **A fotó nem jön át:** az iPhone HEIC képeit egyes böngészők nem tudják átméretezni; a többi adat ilyenkor is megérkezik.
+
+- **Az űrlap „nem sikerült elküldeni” hibát ad:** Vercel → Logs. „hiányzó környezeti változó” → hiányzik az
+  `APPS_SCRIPT_URL` / `APPS_SCRIPT_SECRET` az adott környezetben, vagy nem volt új üzembe helyezés. „… hitelesites” →
+  a két helyen a titok nem egyezik.
+- **Nincs e-mail vagy Naptár-esemény, de van sor:** Apps Script → **Végrehajtások**. Az értesítés hibája nem akasztja meg
+  a mentést, de a naplóban megjelenik („e-mail hiba”, „naptár hiba”). Gyakori ok: a `beallitas` engedélyezésekor a Naptár
+  nem lett engedélyezve. Futtasd újra, és engedélyezz mindent.
+- **A fotó nem jön át:** az iPhone HEIC képeit egyes böngészők nem tudják átméretezni. A többi adat ilyenkor is megérkezik.

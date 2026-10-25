@@ -56,6 +56,7 @@ function beallitas() {
     props.setProperty("NOTIFY_EMAIL", Session.getEffectiveUser().getEmail());
   }
   if (!props.getProperty("SZAMLALO")) { props.setProperty("SZAMLALO", "0"); }
+  if (!props.getProperty("NAPTAR")) { props.setProperty("NAPTAR", "igen"); } // "nem" = ne hozzon létre naptáresemény-t
   if (!props.getProperty("FOLDER_ID")) {
     props.setProperty("FOLDER_ID", DriveApp.createFolder("Támba Klíma – ajánlatkérések fotói").getId());
   }
@@ -139,28 +140,84 @@ function feldolgoz_(keres) {
     sh.getRange(celSor, 1, 1, sor.length).setNumberFormat("@").setValues([sor]);
     sh.getRange(celSor, oszlop_("javasolt_ar")).setNumberFormat("#,##0");
 
-    ertesit_(azonosito, mezok, osszegzes, fotoLinkek, ss.getUrl());
+    // A sor már a táblázatban van: az értesítések hibája ne tegye "sikertelenné" az ajánlatkérést
+    // (különben a vevő újra beküldené, és duplikátum keletkezne).
+    var sorUrl = ss.getUrl() + "#gid=" + sh.getSheetId() + "&range=A" + celSor;
+    try { ertesit_(azonosito, mezok, keres.szoveg || [], fotoLinkek, sorUrl); } catch (hiba1) { Logger.log("e-mail hiba: " + hiba1); }
+    try { naptar_(azonosito, mezok, osszegzes, sorUrl, most); } catch (hiba2) { Logger.log("naptár hiba: " + hiba2); }
     return { ok: true, azonosito: azonosito };
   } finally {
     lock.releaseLock();
   }
 }
 
-function ertesit_(azonosito, mezok, osszegzes, fotoLinkek, tablazatUrl) {
+/** Az "Szolgáltatás" stb. olvasható értéke az összegzésből (a weboldal címkéi szerint). */
+function szoveg_(szoveg, cimke) {
+  for (var i = 0; i < szoveg.length; i++) { if (szoveg[i][0] === cimke) return szoveg[i][1]; }
+  return "";
+}
+
+function he_(s) {
+  return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function ertesit_(azonosito, mezok, szoveg, fotoLinkek, sorUrl) {
   var cimzett = PropertiesService.getScriptProperties().getProperty("NOTIFY_EMAIL");
   if (!cimzett) return;
-  var targy = "Új ajánlatkérés " + azonosito + ": " + (mezok.telepules || "") + " – " + (mezok.nev || "");
+  var szolgaltatas = szoveg_(szoveg, "Szolgáltatás");
+  var targy = "Új ajánlatkérés: " + (szolgaltatas ? szolgaltatas + ", " : "") + (mezok.telepules || "") + " – " + (mezok.nev || "");
+
+  var telSzam = String(mezok.telefon || "");
+  var telHref = "tel:" + telSzam.replace(/[^+0-9]/g, "");
+
+  var sorok = szoveg.map(function (p) { return p[0] + ": " + p[1]; }).join("\n");
   var torzs = "Új ajánlatkérés érkezett a weboldalról (" + azonosito + ").\n\n" +
     "Név: " + (mezok.nev || "") + "\n" +
-    "Telefon: " + (mezok.telefon || "") + "\n" +
+    "Telefon: " + telSzam + "\n" +
     "E-mail: " + (mezok.email || "–") + "\n" +
     "Mikorra: " + (mezok.mikor || "–") + "\n\n" +
-    "Összegzés:\n" + osszegzes + "\n\n" +
+    "Összegzés:\n" + sorok + "\n\n" +
     (fotoLinkek.length ? "Fotók:\n" + fotoLinkek.join("\n") + "\n\n" : "") +
-    "Táblázat: " + tablazatUrl + "\n";
-  var opciok = { to: cimzett, subject: targy, body: torzs, name: "Támba Klíma weboldal" };
+    "Megnyitás a táblázatban: " + sorUrl + "\n";
+
+  var tabla = szoveg.map(function (p) {
+    return "<tr><td style=\"padding:4px 12px 4px 0;color:#5b6b7b;vertical-align:top\">" + he_(p[0]) + "</td><td style=\"padding:4px 0\"><b>" + he_(p[1]) + "</b></td></tr>";
+  }).join("");
+  var html = "<div style=\"font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#0e1621;max-width:560px\">" +
+    "<h2 style=\"margin:0 0 4px;color:#073b73\">Új ajánlatkérés</h2>" +
+    "<p style=\"margin:0 0 14px;color:#5b6b7b\">" + he_(azonosito) + (mezok.mikor ? " · " + he_(mezok.mikor) : "") + "</p>" +
+    "<p style=\"font-size:18px;margin:0 0 4px\"><b>" + he_(mezok.nev || "") + "</b></p>" +
+    "<p style=\"margin:0 0 14px\"><a href=\"" + he_(telHref) + "\" style=\"display:inline-block;background:#1e9be0;color:#fff;text-decoration:none;padding:10px 18px;border-radius:999px;font-weight:bold\">Hívás: " + he_(telSzam) + "</a>" +
+    (mezok.email ? " &nbsp;<a href=\"mailto:" + he_(mezok.email) + "\" style=\"color:#0b5cab\">" + he_(mezok.email) + "</a>" : "") + "</p>" +
+    "<table style=\"border-collapse:collapse;font-size:14px\">" + tabla + "</table>" +
+    (fotoLinkek.length ? "<p style=\"margin:14px 0 4px\"><b>Fotók</b></p>" + fotoLinkek.map(function (u, i) { return "<a href=\"" + he_(u) + "\">" + (i + 1) + ". fotó</a>"; }).join(" · ") : "") +
+    "<p style=\"margin:18px 0 0\"><a href=\"" + he_(sorUrl) + "\" style=\"color:#0b5cab\">Megnyitás a táblázatban</a></p></div>";
+
+  var opciok = { to: cimzett, subject: targy, body: torzs, htmlBody: html, name: "Támba Klíma weboldal" };
   if (mezok.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mezok.email)) { opciok.replyTo = mezok.email; }
   MailApp.sendEmail(opciok);
+}
+
+/** Visszahívási esemény a naptárba. 6:00 és 20:00 között fél óra múlva, egyébként másnap 7:00-ra (budapesti idő). */
+function visszahivasIdopont_(most) {
+  var tz = "Europe/Budapest";
+  var ora = parseInt(Utilities.formatDate(most, tz, "H"), 10);
+  if (ora >= 6 && ora < 20) { return new Date(most.getTime() + 30 * 60 * 1000); }
+  var cel = new Date(most.getTime() + (ora >= 20 ? 24 : 0) * 60 * 60 * 1000);
+  var nap = Utilities.formatDate(cel, tz, "yyyy-MM-dd");
+  var eltolas = Utilities.formatDate(cel, tz, "XXX");
+  return new Date(nap + "T07:00:00" + eltolas);
+}
+
+function naptar_(azonosito, mezok, osszegzes, sorUrl, most) {
+  if (PropertiesService.getScriptProperties().getProperty("NAPTAR") === "nem") return;
+  var kezdes = visszahivasIdopont_(most);
+  var veg = new Date(kezdes.getTime() + 15 * 60 * 1000);
+  var cim = "Visszahívás: " + (mezok.nev || "") + (mezok.telepules ? " (" + mezok.telepules + ")" : "");
+  var leiras = "Telefon: " + (mezok.telefon || "") + "\n\n" + osszegzes + "\n\nTáblázat: " + sorUrl + "\nAzonosító: " + azonosito;
+  var esemeny = CalendarApp.getDefaultCalendar().createEvent(cim, kezdes, veg, { description: leiras });
+  esemeny.removeAllReminders();
+  esemeny.addPopupReminder(0);
 }
 
 function oszlop_(kulcs) {
