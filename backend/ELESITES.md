@@ -12,7 +12,7 @@ A vevő **semmilyen árat nem lát**. A **javasolt árat** (alsó–felső hatá
 2. **Átadás Csabinak másolattal** (3. szakasz): ő a saját fiókjában másolatot készít, engedélyezi, üzembe helyezi.
 3. **Élesítés** (4. szakasz): a Vercel **Production** környezetébe az ő URL-je és titka kerül, az ág bekerül a `main`-be.
 
-A projekt jelenleg az `ajanlatkero` ágon van. A `main` (az éles oldal) addig nem változik, amíg te össze nem fésülöd.
+Az ajánlatkérő a `main` ágon van, élesben fut. Új fejlesztést érdemes külön ágon készíteni, és a Vercel Preview-n kipróbálni.
 
 ## 1. A te tesztpéldányod (saját Google-fiók)
 
@@ -66,7 +66,6 @@ Ha ezt Csabi kényelmesebben egy képernyőmegosztás mellett csinálja, a jelsz
   (a régi készülék elszállítása, a távolabbi települések kiszállási díja). Az akciós készülékek ára a **Készülékek**
   munkalapon van: ha az Akciók oldalon új akció kerül fel, ide is fel kell venni (a kulcs a plakát fájlneve kiterjesztés nélkül).
 - A **Státusz** oszlop: Új → Visszahívva → Felmérés egyeztetve → Ajánlat kiküldve → Elfogadva / Elvetve.
-- A Kapcsolat oldalról a régi űrlap kivétele (az Adatkezelési tájékoztató 2.1. pontját és a FormSubmitot is ekkor ki kell venni).
 - Az Adatkezelési tájékoztató **megőrzési ideje** (4. pont, jelenleg „[pl. 12] hónap”).
 - AppSheet-próba (telefonos lista), Looker Studio irányítópult, Gemini-vázlat és PDF-ajánlat.
 - A `Code.gs` módosítása után: **Üzembe helyezés → Üzembe helyezések kezelése → ✎ → Új verzió**, különben az élő URL

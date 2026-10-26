@@ -201,7 +201,7 @@ p + p { margin-top: 0.85rem; }
   padding: .55rem .55rem; border-radius: 8px; white-space: nowrap;
 }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--cold-900); background: var(--cold-100); }
-@media (min-width: 1161px) { .nav .phone-btn { display: none; } }
+@media (min-width: 1281px) { .nav .phone-btn { display: none; } }
 
 .header-cta { display: inline-flex; align-items: center; gap: .5rem; flex-shrink: 0; }
 .phone-btn {
@@ -220,7 +220,7 @@ p + p { margin-top: 0.85rem; }
 }
 .nav-toggle svg { width: 22px; height: 22px; }
 
-@media (max-width: 1160px) {
+@media (max-width: 1280px) {
   .nav-toggle { display: inline-flex; }
   .nav {
     position: fixed; inset: var(--header-h) 0 auto 0;
@@ -688,3 +688,14 @@ section[data-promos] + #szolgaltatasok { padding-top: clamp(2rem, 5vw, 3rem); }
 .prose h2 { margin-top: 2rem; }
 .prose h3 { margin-top: 1.4rem; }
 .prose ul { padding-left: 1.2rem; }
+
+/* ---------- Ajánlatkérés gomb a menüsorban ---------- */
+.nav a.nav-cta {
+  margin-left: .4rem; padding: .5rem 1rem; border-radius: 999px;
+  background-image: var(--grad-cta); color: #fff; font-weight: 700;
+}
+.nav a.nav-cta:hover, .nav a.nav-cta[aria-current="page"] { color: #fff; background-image: var(--grad-cta-hover); background-color: transparent; }
+@media (max-width: 1280px) {
+  .nav a.nav-cta { margin: .4rem 0 0; padding: .85rem .6rem; text-align: center; border-radius: var(--radius); font-size: 1.05rem; }
+}
+.nav a.phone-btn, .nav a.phone-btn:hover { color: #fff; }

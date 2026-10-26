@@ -42,6 +42,7 @@
       <a href="kisokos.html">Kisokos</a>
       <a href="rolunk.html">Rólunk</a>
       <a href="kapcsolat.html" aria-current="page">Kapcsolat</a>
+      <a class="nav-cta" href="ajanlatkeres.html">Ajánlatkérés</a>
       <a class="phone-btn" href="tel:+36205422171">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1 .35 1.98.66 2.92a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.16-1.16a2 2 0 0 1 2.11-.45c.94.31 1.92.53 2.92.66A2 2 0 0 1 22 16.92z"/></svg>
         +36 20 542 2171
@@ -61,7 +62,7 @@
     <div class="container">
       <p class="breadcrumb"><a href="index.html">Főoldal</a> / Kapcsolat</p>
       <h1>Kapcsolat és ajánlatkérés</h1>
-      <p>A leggyorsabb, ha telefonon keres – munkaidőben jellemzően rövid időn belül visszahívjuk. Ha most nem alkalmas, írjon az űrlapon: nyugodtan, kötetlenül, akkor is, ha még csak tájékozódik.</p>
+      <p>A leggyorsabb, ha telefonon keres – munkaidőben jellemzően rövid időn belül visszahívjuk. Ha most nem alkalmas, töltse ki az ajánlatkérő űrlapot: nyugodtan, kötetlenül, akkor is, ha még csak tájékozódik.</p>
     </div>
   </section>
 
@@ -115,57 +116,15 @@
 
       <div>
         <h2>Ajánlatkérés</h2>
-        <p style="color:var(--muted);margin-bottom:1rem">Nem kell értenie a szakmai részletekhez – írja le pár mondatban, mire lenne szüksége, a többit a felmérésen átbeszéljük.</p>
-        <form class="form-card" data-quote-form novalidate
-              action="https://formsubmit.co/tambaklima25@gmail.com" method="POST" enctype="multipart/form-data">
-          <!-- ŰRLAP → E-MAIL (FormSubmit.co, backend nélkül):
-               1) Az ELSŐ elküldés után a FormSubmit egy aktiváló e-mailt küld Csabának
-                  (tambaklima25@gmail.com) – abban a linket egyszer meg kell nyitni.
-                  Utána minden beküldött űrlap e-mailben megérkezik.
-               2) Adatvédelem: aktiválás után a fenti e-mail-cím lecserélhető a
-                  FormSubmit által adott véletlen aliasra (formsubmit.co/xxxxxxxx).
-               3) A "_next" mezőt írd át a tényleges élő címre, ha nem tambaklima.hu.
-               4) Ha spam jönne, kapcsold be a captchát: _captcha értéke "true". -->
-          <input type="hidden" name="_subject" value="Új ajánlatkérés – tambaklima.hu">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_next" value="https://tambaklima.hu/koszonjuk.html">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-          <div class="field">
-            <label for="nev">Név <span class="req" aria-hidden="true">*</span></label>
-            <input id="nev" name="nev" type="text" autocomplete="name" required>
+        <div class="card" style="margin-top:1rem">
+          <h3 style="margin-top:0">Pár gyors kérdés, és visszahívjuk</h3>
+          <p style="color:var(--muted)">Nem kell értenie a szakmai részletekhez. Az ajánlatkérő űrlapon lépésről lépésre végigvezetjük: a szolgáltatástól a helyszínig, igény szerint fotóval. Kb. 3 percet vesz igénybe, és mi felkészülten hívjuk vissza.</p>
+          <div class="btn-row mt-3">
+            <a class="btn btn--lg" href="ajanlatkeres.html">Ajánlatkérés indítása</a>
+            <a class="btn btn--ghost btn--lg" href="tel:+36205422171">+36 20 542 2171</a>
           </div>
-          <div class="form-row">
-            <div class="field">
-              <label for="telefon">Telefonszám <span class="req" aria-hidden="true">*</span></label>
-              <input id="telefon" name="telefon" type="tel" autocomplete="tel" inputmode="tel" required>
-            </div>
-            <div class="field">
-              <label for="email">E-mail</label>
-              <input id="email" name="email" type="email" autocomplete="email">
-            </div>
-          </div>
-          <div class="field">
-            <label for="telepules">Település</label>
-            <input id="telepules" name="telepules" type="text" autocomplete="address-level2">
-          </div>
-          <div class="field">
-            <label for="uzenet">Miben segíthetünk? <span class="req" aria-hidden="true">*</span></label>
-            <textarea id="uzenet" name="uzenet" required placeholder="Pl. 2 db split klíma telepítése új építésű házba, kb. 25 és 15 m²-es szoba."></textarea>
-          </div>
-          <div class="field">
-            <label for="fotok">Fotó feltöltése (opcionális)</label>
-            <input id="fotok" name="fotok" type="file" accept="image/*" multiple>
-            <p class="form-note">A helyiségről vagy a meglévő klímáról készült kép segíti a felmérést. 1–2 kisebb kép ideális; a nagyobbakat inkább Messengeren küldje.</p>
-          </div>
-          <div class="field field--check">
-            <input id="hozzajarulas" name="hozzajarulas" type="checkbox" required>
-            <label for="hozzajarulas">Hozzájárulok, hogy a Támba Klíma a megadott adataimat a megkeresésem megválaszolásához kezelje. <a href="adatkezeles.html">Adatkezelési tájékoztató</a>. <span class="req" aria-hidden="true">*</span></label>
-          </div>
-          <button class="btn btn--lg btn--block" type="submit">Ajánlatkérés elküldése</button>
-          <div class="form-status" role="status" aria-live="polite"></div>
-          <p class="form-note">Elküldés után e-mailben megkapjuk a megkeresését, és munkaidőben jellemzően rövid időn belül visszahívjuk. Inkább telefonálna? <a href="tel:+36205422171">+36 20 542 2171</a>. Az ajánlatkérés nem megrendelés; a szolgáltatás feltételei az <a href="aszf.html">ÁSZF</a>-ben.</p>
-        </form>
+          <p class="form-note">Inkább telefonálna vagy Messengeren írna? Az elérhetőségeink bal oldalt vannak, munkaidőben jellemzően rövid időn belül válaszolunk.</p>
+        </div>
       </div>
 
     </div>
