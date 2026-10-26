@@ -63,7 +63,7 @@ Ha ezt Csabi kényelmesebben egy képernyőmegosztás mellett csinálja, a jelsz
 ## 5. Később
 
 - **Javasolt ár – finomítás:** a **Szabályok**, **Települések** és **Készülékek** munkalap sárga celláit Csabával kell kitölteni
-  (elektromos vezeték felára, elszállítás, a távolabbi települések kiszállási díja). Az akciós készülékek ára a **Készülékek**
+  (a régi készülék elszállítása, a távolabbi települések kiszállási díja). Az akciós készülékek ára a **Készülékek**
   munkalapon van: ha az Akciók oldalon új akció kerül fel, ide is fel kell venni (a kulcs a plakát fájlneve kiterjesztés nélkül).
 - A **Státusz** oszlop: Új → Visszahívva → Felmérés egyeztetve → Ajánlat kiküldve → Elfogadva / Elvetve.
 - A Kapcsolat oldalról a régi űrlap kivétele (az Adatkezelési tájékoztató 2.1. pontját és a FormSubmitot is ekkor ki kell venni).

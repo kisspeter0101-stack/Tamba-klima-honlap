@@ -39,12 +39,11 @@ var STATUSZOK = ["Új", "Visszahívva", "Felmérés egyeztetve", "Ajánlat kikü
 // --- Árszabályok: alapértékek. A Szabályok munkalapot Csaba szerkeszti, az itt megadott érték csak a kezdőérték. ---
 // [kulcs, megnevezés, érték, egység, megjegyzés]. Üres érték = még nincs meghatározva (sárgával jelölve).
 var SZABALYOK_ALAP = [
-  ["ALAP_KW_ALATT", "Alapszerelés 3,5 kW-ig", 80000, "Ft", "Az alapszerelés tartalma: 3 m csővezeték, 1 falátfúrás, 3 m elektromos vezeték, takarócsatorna. Az árlista szerint „-tól”."],
+  ["ALAP_KW_ALATT", "Alapszerelés 3,5 kW-ig", 80000, "Ft", "Az alapszerelés tartalma: 3 m csővezeték, 1 falátfúrás, 10 m elektromos vezeték, takarócsatorna. Az árlista szerint „-tól”."],
   ["ALAP_KW_FELETT", "Alapszerelés 3,5 kW felett", 100000, "Ft", ""],
   ["CSO_ALAP_M", "Az alapszerelésben foglalt csővezeték", 3, "m", ""],
   ["CSO_FELAR", "Többlet csővezeték", 12000, "Ft / m", ""],
-  ["ELEKTROMOS_ALAP_M", "Az alapszerelésben foglalt elektromos vezeték", 3, "m", ""],
-  ["ELEKTROMOS_FELAR", "Többlet elektromos vezeték (az alapon felül)", "", "Ft / m", "KITÖLTENDŐ. A weboldal árlistája szerint az elektromos bekötés hosszabbítása 10 m-ig díjmentes, ezt egyeztetni kell."],
+  ["ELEKTROMOS_ALAP_M", "Az alapszerelésben foglalt elektromos vezeték", 10, "m", "10 m felett egyedi ár (az összegbe nem kerül bele, megjegyzés jelzi)."],
   ["MULTI_FELAR", "Multi-split: felár a 2. beltéri egységtől", 60000, "Ft / egység", "Az első beltéri egység az alapszerelés árában van."],
   ["PORLASZTO", "Kondenzvíz-porlasztó", 15000, "Ft", "Ha a kondenzvíz nem vezethető el."],
   ["LESZERELES", "Régi készülék leszerelése", 20000, "Ft", "Az árlista szerint „-tól”."],
@@ -329,16 +328,9 @@ function javaslat_(mezok, ss) {
     }
     if (mezok.tav === "9") { jegyzetek.push("A kültéri és beltéri egység 8 m-nél messzebb van: a felső határ legfeljebb 10 m többlet csővel számol."); }
 
-    // 4) elektromos vezeték
-    if (mezok.aram === "10" || mezok.aram === "10+" || mezok.aram === "nemtudom") {
-      if (mezok.aram === "10+") {
-        jegyzetek.push("Az áramforrás 10 m-nél messzebb van: a többlet elektromos vezeték egyedi ár, nincs az összegben.");
-      } else if (szab.ELEKTROMOS_FELAR !== null) {
-        var elMax = 7;
-        hozzaad("Többlet elektromos vezeték (0–" + elMax + " m × " + ft_(szab.ELEKTROMOS_FELAR) + ")", 0, elMax * szab.ELEKTROMOS_FELAR);
-      } else {
-        jegyzetek.push("Az áramforrás 3 m-nél messzebb lehet: a többlet elektromos vezeték felára nincs megadva (Szabályok munkalap, ELEKTROMOS_FELAR), nincs az összegben.");
-      }
+    // 4) elektromos vezeték: az alapszerelés 10 m-ig tartalmazza, afelett egyedi ár (nincs az összegben)
+    if (mezok.aram === "10+") {
+      jegyzetek.push("Az áramforrás 10 m-nél messzebb van: a 10 m feletti elektromos bekötés egyedi ár, nincs az összegben.");
     }
 
     // 5) kondenzvíz
