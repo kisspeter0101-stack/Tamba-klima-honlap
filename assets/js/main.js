@@ -370,10 +370,10 @@
   // "/index.html" -> "/", "/arak.html" -> "/arak"
   var path = location.pathname.replace(/index\.html$/, "").replace(/\.html$/, "").replace(/\/+$/, "") || "/";
 
-  function track(event) {
+  function track(event, pathOverride) {
     try {
       if (isOwner()) return;
-      var body = JSON.stringify({ site: "tambaklima.hu", event: event, path: path });
+      var body = JSON.stringify({ site: "tambaklima.hu", event: event, path: pathOverride || path });
       // text/plain: így más domainre is elmegy előkérés nélkül, és oldalelhagyáskor is kiér.
       var blob = new Blob([body], { type: "text/plain" });
       if (!(navigator.sendBeacon && navigator.sendBeacon(ENDPOINT, blob))) {

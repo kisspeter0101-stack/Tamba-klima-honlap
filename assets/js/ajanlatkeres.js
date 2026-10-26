@@ -170,6 +170,8 @@
       .then(function (ok) {
         if (!ok) throw new Error("send");
         sending = false; showResult();
+        // Az elküldött ajánlatkérést a központi számláló a /koszonjuk oldal megtekintéseként számolja (mint a régi űrlapnál).
+        try { if (window.kpTrack) window.kpTrack("pageview", "/koszonjuk"); } catch (e) { /* a mérés hibája nem akadályozhatja a beküldést */ }
       })
       .catch(function () {
         sending = false; next.disabled = false; next.textContent = "Ajánlatot kérek";
