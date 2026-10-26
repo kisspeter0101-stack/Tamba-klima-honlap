@@ -201,7 +201,7 @@ p + p { margin-top: 0.85rem; }
   padding: .55rem .55rem; border-radius: 8px; white-space: nowrap;
 }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--cold-900); background: var(--cold-100); }
-@media (min-width: 1281px) { .nav .phone-btn { display: none; } }
+@media (min-width: 1161px) { .nav .phone-btn { display: none; } }
 
 .header-cta { display: inline-flex; align-items: center; gap: .5rem; flex-shrink: 0; }
 .phone-btn {
@@ -220,7 +220,7 @@ p + p { margin-top: 0.85rem; }
 }
 .nav-toggle svg { width: 22px; height: 22px; }
 
-@media (max-width: 1280px) {
+@media (max-width: 1160px) {
   .nav-toggle { display: inline-flex; }
   .nav {
     position: fixed; inset: var(--header-h) 0 auto 0;
@@ -695,7 +695,15 @@ section[data-promos] + #szolgaltatasok { padding-top: clamp(2rem, 5vw, 3rem); }
   background-image: var(--grad-cta); color: #fff; font-weight: 700;
 }
 .nav a.nav-cta:hover, .nav a.nav-cta[aria-current="page"] { color: #fff; background-image: var(--grad-cta-hover); background-color: transparent; }
-@media (max-width: 1280px) {
+@media (max-width: 1160px) {
   .nav a.nav-cta { margin: .4rem 0 0; padding: .85rem .6rem; text-align: center; border-radius: var(--radius); font-size: 1.05rem; }
 }
 .nav a.phone-btn, .nav a.phone-btn:hover { color: #fff; }
+
+/* Laptop-szélességen (1061–1400 px) kompaktabb fejléc, hogy a teljes menü kiférjen hamburger nélkül */
+@media (min-width: 1161px) and (max-width: 1400px) {
+  .site-header__inner { gap: .6rem; }
+  .nav a { padding: .5rem .42rem; font-size: .86rem; }
+  .nav a.nav-cta { padding: .45rem .8rem; margin-left: .2rem; }
+  .header-cta .phone-btn { padding: .55rem .85rem; font-size: .88rem; }
+}
