@@ -345,3 +345,53 @@
     });
   }
 })();
+
+/* ---------- Névtelen látogatásmérés ----------
+   A kisspeter.hu központi, süti nélküli számlálójába küld (nincs süti, IP-cím vagy személyes adat).
+   Mér: oldalmegtekintés, kattintás a telefonszámra, kattintás az ajánlatkérésre.
+   Az elküldött ajánlatkérések a koszonjuk.html megtekintéséből látszanak.
+   Saját böngésző kizárása: egyszer nyisd meg a https://tambaklima.hu/?sajat=1 címet (vissza: ?sajat=0).
+--------------------------------------------------------------- */
+(function () {
+  var ENDPOINT = "https://kisspeter.hu/api/latogatas";
+  var FLAG = "kp-sajat-bongeszo";
+
+  function isOwner() {
+    try {
+      var flag = new URLSearchParams(location.search).get("sajat");
+      if (flag === "1") localStorage.setItem(FLAG, "1");
+      if (flag === "0") localStorage.removeItem(FLAG);
+      return localStorage.getItem(FLAG) === "1";
+    } catch (e) {
+      return false;
+    }
+  }
+
+  // "/index.html" -> "/", "/arak.html" -> "/arak"
+  var path = location.pathname.replace(/index\.html$/, "").replace(/\.html$/, "").replace(/\/+$/, "") || "/";
+
+  function track(event) {
+    try {
+      if (isOwner()) return;
+      var body = JSON.stringify({ site: "tambaklima.hu", event: event, path: path });
+      // text/plain: így más domainre is elmegy előkérés nélkül, és oldalelhagyáskor is kiér.
+      var blob = new Blob([body], { type: "text/plain" });
+      if (!(navigator.sendBeacon && navigator.sendBeacon(ENDPOINT, blob))) {
+        fetch(ENDPOINT, { method: "POST", body: body, keepalive: true, headers: { "Content-Type": "text/plain" } }).catch(function () {});
+      }
+    } catch (e) {
+      /* a mérés hibája sosem akadályozhatja a látogatót */
+    }
+  }
+
+  window.kpTrack = track;
+  track("pageview");
+
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href]");
+    if (!a) return;
+    var href = a.getAttribute("href") || "";
+    if (href.indexOf("tel:") === 0) track("call_click");
+    else if (/ajanlatkeres/i.test(href) || /ajánlat/i.test(a.textContent || "")) track("quote_click");
+  });
+})();
