@@ -193,6 +193,64 @@
       .catch(function () { /* marad a "nincs akció" állapot */ });
   }
 
+  /* ---------- Referenciák és vélemények ----------
+     A referenciafotók az assets/data/referenciak.json ({"kepek":[{kep, alt, felirat, foldal}]}),
+     a vélemények az assets/data/velemenyek.json ({"velemenyek":[{nev, szoveg, forras, foldal}]}) fájlból jönnek,
+     a Pages CMS-ben szerkeszthetők. A data-home attribútumú konténer csak a "foldal": true elemeket mutatja.
+  --------------------------------------------------------------- */
+  var galleryBox = document.querySelector("[data-gallery]");
+  if (galleryBox) {
+    fetch("assets/data/referenciak.json", { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (d) {
+        var list = d && Array.isArray(d.kepek) ? d.kepek : [];
+        if (galleryBox.hasAttribute("data-home")) list = list.filter(function (x) { return x && x.foldal; });
+        list.forEach(function (x) {
+          if (!x || !x.kep) return;
+          var fig = document.createElement("figure");
+          var btn = document.createElement("button");
+          btn.className = "shot"; btn.type = "button";
+          var img = document.createElement("img");
+          img.src = x.kep; img.alt = x.alt || x.felirat || "Referenciafotó";
+          img.loading = "lazy"; img.decoding = "async";
+          btn.appendChild(img); fig.appendChild(btn);
+          if (x.felirat) {
+            var cap = document.createElement("figcaption");
+            cap.textContent = x.felirat; fig.appendChild(cap);
+          }
+          galleryBox.appendChild(fig);
+        });
+      })
+      .catch(function () { /* hiba esetén üres marad a galéria */ });
+  }
+
+  var reviewBox = document.querySelector("[data-reviews]");
+  if (reviewBox) {
+    fetch("assets/data/velemenyek.json", { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (d) {
+        var list = d && Array.isArray(d.velemenyek) ? d.velemenyek : [];
+        if (reviewBox.hasAttribute("data-home")) list = list.filter(function (x) { return x && x.foldal; });
+        list.forEach(function (x) {
+          if (!x || !x.szoveg) return;
+          var bq = document.createElement("blockquote");
+          bq.className = "testimonial";
+          var p = document.createElement("p");
+          p.textContent = "„" + String(x.szoveg).trim().replace(/^[„"“]+|[”"“]+$/g, "") + "”";
+          var ft = document.createElement("footer");
+          ft.className = "testimonial__author";
+          var n = document.createElement("span");
+          n.className = "testimonial__name"; n.textContent = x.nev || "";
+          var s = document.createElement("span");
+          s.className = "testimonial__source"; s.textContent = x.forras || "";
+          ft.appendChild(n); ft.appendChild(s);
+          bq.appendChild(p); bq.appendChild(ft);
+          reviewBox.appendChild(bq);
+        });
+      })
+      .catch(function () { /* hiba esetén üres marad */ });
+  }
+
   /* ---------- Árak ----------
      Minden ár az assets/data/arak.json fájlból jön ({"sorok":[{tetel, ar}]}):
      - az arak.html táblázata ([data-price-body]) ebből épül;

@@ -54,3 +54,68 @@ content:
             type: string
             required: true
             description: "Szövegként írd, pl.: 80 000 Ft-tól, 12 000 Ft / méter, Egyedi megállapodás szerint"
+
+  - name: referenciak
+    label: Referenciák (fotók)
+    type: file
+    path: assets/data/referenciak.json
+    format: json
+    fields:
+      - name: kepek
+        label: Referenciafotók
+        type: object
+        list: true
+        description: "A Referenciák oldal galériája. A sorrend számít (a lista elején lévő képek látszanak elöl). Új fotó: Add an entry, majd töltsd fel a képet és add meg a feliratot. Törléshez töröld a sort."
+        fields:
+          - name: kep
+            label: Fotó
+            type: image
+            required: true
+            description: "Csak saját, elvégzett munkáról készült valódi fotó. Mesterséges (AI) képet, másik cég munkáját vagy ugyanannak a munkának ugyanazt a képét kétszer ne tölts fel. A képen ne látszódjon arc, rendszám vagy házszám. A nagy képeket a rendszer automatikusan kicsinyíti."
+          - name: alt
+            label: Kép leírása (kereséshez, képernyőolvasóhoz)
+            type: string
+            required: true
+            description: "Egy mondat arról, mi látszik a képen. Pl.: Midea beltéri egység krémszínű falon, otthonos szobában"
+          - name: felirat
+            label: Képaláírás (a kép alatt látszik)
+            type: string
+            description: "Rövid felirat, pl.: Beltéri egység – nappali"
+          - name: foldal
+            label: Látszódjon a főoldalon is
+            type: boolean
+            default: false
+            description: "A főoldalon csak a bejelölt képek látszanak, legfeljebb 4–6 ajánlott."
+
+  - name: velemenyek
+    label: Vélemények
+    type: file
+    path: assets/data/velemenyek.json
+    format: json
+    fields:
+      - name: velemenyek
+        label: Ügyfélvélemények
+        type: object
+        list: true
+        description: "A Vélemények oldal tartalma. Csak valódi, a Google-profilunkon vagy a Facebook-oldalunkon megjelent véleményeket tegyünk ki, szó szerint másolva, kitalált vagy átírt vélemény nem kerülhet fel."
+        fields:
+          - name: nev
+            label: Név (rövidítve)
+            type: string
+            required: true
+            description: "A vélemény írójának neve rövidítve, pl.: Kata M."
+          - name: szoveg
+            label: A vélemény szövege
+            type: text
+            required: true
+            description: "Szó szerint másold be. Az idézőjelet nem kell kitenni, az oldal magától megteszi."
+          - name: forras
+            label: Forrás
+            type: string
+            default: Google
+            description: "Honnan származik a vélemény: Google vagy Facebook."
+          - name: foldal
+            label: Látszódjon a főoldalon is
+            type: boolean
+            default: false
+            description: "A főoldalon csak a bejelölt vélemények látszanak, ajánlott legfeljebb 4."

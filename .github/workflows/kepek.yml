@@ -1,0 +1,46 @@
+name: Feltöltött képek kicsinyítése
+
+# Ha a Pages CMS-ben (vagy bárhogyan) új, nagy fotó kerül a tárolóba, ez a feladat
+# automatikusan kicsinyíti (legfeljebb 1600 px), és törli a képből az EXIF-adatokat
+# (pl. a telefon GPS-helyadatait), majd visszacommitolja. A már kicsi képekhez nem nyúl.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/img/akcio/**'
+      - 'assets/img/ref/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  resize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Nagy képek kicsinyítése, EXIF törlése
+        run: |
+          changed=0
+          while IFS= read -r -d '' f; do
+            w=$(identify -format '%w' "$f")
+            h=$(identify -format '%h' "$f")
+            size=$(stat -c%s "$f")
+            max=$(( w > h ? w : h ))
+            if [ "$max" -gt 1600 ] || [ "$size" -gt 1500000 ]; then
+              echo "Kicsinyítés: $f (${w}x${h}, ${size} bájt)"
+              mogrify -auto-orient -strip -resize '1600x1600>' -quality 82 "$f"
+              changed=1
+            fi
+          done < <(find assets/img/akcio assets/img/ref -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) -print0)
+          echo "changed=$changed" >> "$GITHUB_ENV"
+
+      - name: Commit, ha változott valami
+        if: env.changed == '1'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || (git commit -m "Feltöltött képek kicsinyítése (automatikus)" && git push)
