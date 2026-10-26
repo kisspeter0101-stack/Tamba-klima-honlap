@@ -86,7 +86,7 @@
   var LABELS = [
     ["szolg", "Szolgáltatás"], ["db", "Készülékek száma"], ["telepules", "Település"], ["ingatlan", "Ingatlan"],
     ["ugyanoda", "Új készülék a régi helyén"], ["hozzajarulas", "Társasházi hozzájárulás"], ["emelet", "Emelet"], ["allapot", "Az épület állapota"], ["idoszak", "Mikor végezhető a munka"],
-    ["terulet", "Alapterület"], ["haszn", "Használat"], ["nap", "Napsütés"], ["marka", "Márka"], ["kor", "Készülék kora"],
+    ["terulet", "Alapterület"], ["haszn", "Használat"], ["nap", "Napsütés"], ["akcio", "Akciós ajánlat"], ["marka", "Márka"], ["kor", "Készülék kora"],
     ["utolso", "Utolsó karbantartás"], ["hiba", "Probléma"], ["kulteri", "Kültéri egység"],
     ["fal", "Fal anyaga"], ["szemben", "Kültéri egység ugyanazon a falon"], ["tav", "Egységek távolsága"],
     ["kondenz", "Kondenzvíz"], ["aram", "Áramforrás"], ["regi", "Régi készülék"], ["mikor", "Mikorra"], ["nev", "Név"], ["telefon", "Telefon"], ["email", "E-mail"]
@@ -176,6 +176,24 @@
         err.textContent = "Sajnos nem sikerült elküldeni. Kérjük, próbálja újra, vagy hívjon minket: +36 20 542 2171.";
         err.hidden = false;
       });
+  }
+
+  // Az akciós készülékek listája az Akciók oldal adatából (assets/data/akciok.json); az érték a plakát fájlneve.
+  var akcioSelect = form.elements.akcio;
+  if (akcioSelect) {
+    fetch("assets/data/akciok.json", { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (d) {
+        ((d && d.akciok) || []).forEach(function (a) {
+          if (!a || !a.kep) return;
+          var kulcs = a.kep.split("/").pop().replace(/\.[^.]+$/, "");
+          var nev = (a.alt || kulcs).split(/ klíma|,/)[0].trim();
+          var o = document.createElement("option");
+          o.value = kulcs; o.textContent = nev;
+          akcioSelect.appendChild(o);
+        });
+      })
+      .catch(function () { /* a lista nélkül is működik az űrlap */ });
   }
 
   form.addEventListener("change", function () { err.hidden = true; apply(); });

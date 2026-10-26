@@ -12,7 +12,7 @@
 // Csak ezeket a mezőket fogadjuk el (a többit eldobjuk).
 var ENGEDELYEZETT = [
   "szolg", "db", "telepules", "ingatlan", "ugyanoda", "hozzajarulas", "allapot", "idoszak",
-  "terulet", "haszn", "nap", "marka", "kor", "utolso", "hiba",
+  "terulet", "haszn", "nap", "akcio", "marka", "kor", "utolso", "hiba",
   "emelet", "fal", "kulteri", "szemben", "tav", "kondenz", "aram", "regi",
   "mikor", "nev", "telefon", "email", "hozzajarulas_adat"
 ];

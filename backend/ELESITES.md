@@ -3,8 +3,8 @@
 Az űrlap (`ajanlatkeres.html`) a `/api/ajanlat` Vercel-függvényen át küld a Google Apps Scriptnek.
 Az Apps Script a táblázatba új sort ír, a fotókat a Drive-ra menti, e-mailt küld Csabának
 (kattintható telefonszámmal), és Naptár-eseményt vesz fel a visszahívásra.
-A vevő **semmilyen árat nem lát**. A javasolt ár számítása (Szabályok munkalap, képletek) későbbi lépés,
-a **Javasolt ár** oszlop addig üres.
+A vevő **semmilyen árat nem lát**. A **javasolt árat** (alsó–felső határ és tételes bontás) a szkript számolja ki a
+**Szabályok**, **Települések** és **Készülékek** munkalapok értékeiből, és csak Csaba látja: a táblázatban és az értesítő e-mailben.
 
 ## Menetrend
 
@@ -62,8 +62,9 @@ Ha ezt Csabi kényelmesebben egy képernyőmegosztás mellett csinálja, a jelsz
 
 ## 5. Később
 
-- **Javasolt ár:** külön **Szabályok** munkalap (alapár kW szerint, csővezeték Ft/m, falátfúrás, kiszállás településenként,
-  porlasztó stb.), a **Javasolt ár** oszlop képletei innen számolnak, az e-mail is kiírja. Csaba értékeit kell hozzá bekérni.
+- **Javasolt ár – finomítás:** a **Szabályok**, **Települések** és **Készülékek** munkalap sárga celláit Csabával kell kitölteni
+  (elektromos vezeték felára, elszállítás, a távolabbi települések kiszállási díja). Az akciós készülékek ára a **Készülékek**
+  munkalapon van: ha az Akciók oldalon új akció kerül fel, ide is fel kell venni (a kulcs a plakát fájlneve kiterjesztés nélkül).
 - A **Státusz** oszlop: Új → Visszahívva → Felmérés egyeztetve → Ajánlat kiküldve → Elfogadva / Elvetve.
 - A Kapcsolat oldalról a régi űrlap kivétele (az Adatkezelési tájékoztató 2.1. pontját és a FormSubmitot is ekkor ki kell venni).
 - Az Adatkezelési tájékoztató **megőrzési ideje** (4. pont, jelenleg „[pl. 12] hónap”).
