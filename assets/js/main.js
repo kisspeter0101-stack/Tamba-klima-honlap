@@ -406,7 +406,7 @@
 
 /* ---------- Névtelen látogatásmérés ----------
    A kisspeter.hu központi, süti nélküli számlálójába küld (nincs süti, IP-cím vagy személyes adat).
-   Mér: oldalmegtekintés, kattintás a telefonszámra, kattintás az ajánlatkérésre.
+   Mér: oldalmegtekintés (és honnan jött a látogató), kattintás a telefonszámra, az e-mail címre és az ajánlatkérésre.
    Az elküldött ajánlatkérések a koszonjuk.html megtekintéséből látszanak.
    Saját böngésző kizárása: egyszer nyisd meg a https://tambaklima.hu/?sajat=1 címet (vissza: ?sajat=0).
 --------------------------------------------------------------- */
@@ -431,7 +431,18 @@
   function track(event, pathOverride) {
     try {
       if (isOwner()) return;
-      var body = JSON.stringify({ site: "tambaklima.hu", event: event, path: pathOverride || path });
+      var data = { site: "tambaklima.hu", event: event, path: pathOverride || path };
+      if (event === "pageview" && !pathOverride) {
+        // Honnan jött (a kisspeter.hu számolja ki belőle a forrást): a hivatkozó oldal és a link jelölései.
+        // Az oldalon belüli továbblépést (a hivatkozó maga a tambaklima.hu) a számláló nem veszi forrásnak.
+        var q = new URLSearchParams(location.search);
+        data.landing = true;
+        data.ref = document.referrer.slice(0, 300);
+        data.utm = q.get("utm_source") || q.get("forras") || "";
+        data.medium = q.get("utm_medium") || "";
+        data.gclid = q.has("gclid");
+      }
+      var body = JSON.stringify(data);
       // text/plain: így más domainre is elmegy előkérés nélkül, és oldalelhagyáskor is kiér.
       var blob = new Blob([body], { type: "text/plain" });
       if (!(navigator.sendBeacon && navigator.sendBeacon(ENDPOINT, blob))) {
@@ -450,6 +461,7 @@
     if (!a) return;
     var href = a.getAttribute("href") || "";
     if (href.indexOf("tel:") === 0) track("call_click");
+    else if (href.indexOf("mailto:") === 0) track("mail_click");
     else if (/ajanlatkeres/i.test(href) || /ajánlat/i.test(a.textContent || "")) track("quote_click");
   });
 })();
