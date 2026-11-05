@@ -26,6 +26,11 @@ content:
             type: image
             required: true
             description: "Lehetőleg álló vagy négyzetes plakát, legfeljebb ~1 MB (a Facebookról lementett kép megfelel)."
+          - name: nev
+            label: Készülék neve (az ajánlatkérő űrlap listájában ez látszik)
+            type: string
+            required: true
+            description: "Rövid név, pl.: Midea Solstice vagy Cooper & Hunter Daytona. Ne szerepeljen benne ár."
           - name: alt
             label: Kép leírása (az ár is szerepeljen benne)
             type: string

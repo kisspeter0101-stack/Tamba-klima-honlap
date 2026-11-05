@@ -2,66 +2,82 @@
   "akciok": [
     {
       "kep": "/assets/img/akcio/tcl-elite.jpg",
+      "nev": "TCL Elite",
       "alt": "TCL Elite klíma, 3,5 kW – alapszereléssel (3 m csőhosszig) telepítve 235 000 Ft"
     },
     {
       "kep": "/assets/img/akcio/midea-xtreme-save.jpg",
+      "nev": "Midea Xtreme Save",
       "alt": "Midea Xtreme Save klíma, 3,5 kW – alapszereléssel 275 000 Ft; klíma tisztítás mosózsákkal akciós áron 15 000 Ft"
     },
     {
       "kep": "/assets/img/akcio/midea-solstice.jpg",
+      "nev": "Midea Solstice",
       "alt": "Midea Solstice klíma, 3,5 kW – fűtésre optimalizálva, akár -25°C-ig fűt – alapszereléssel (3 m csőhosszig) 310 000 Ft"
     },
     {
       "kep": "/assets/img/akcio/midea-all-easy-pro.jpg",
+      "nev": "Midea All Easy Pro",
       "alt": "Midea All Easy Pro klíma, 3,5 kW – alapszereléssel (3 m csőhosszig) 310 000 Ft"
     },
     {
       "kep": "/assets/img/akcio/mdv-evo.jpg",
+      "nev": "MDV EVO",
       "alt": "MDV EVO klíma, 3,5 kW – alapszereléssel (3 m csőhosszig) 250 000 Ft"
     },
     {
       "kep": "/assets/img/akcio/midea-solunar.jpg",
+      "nev": "Midea Solunar",
       "alt": "Midea Solunar klíma, 3,5 kW – alapszereléssel 290 000 Ft; klíma tisztítás akciós áron 15 000 Ft"
     },
     {
       "kep": "/assets/img/akcio/810.png",
+      "nev": "Polar Optimális",
       "alt": "Polar Optimális 3,5kw. Hűtésre és fűtésre egyaránt, alapszereléssel 265000ft. "
     },
     {
       "kep": "/assets/img/akcio/809.png",
+      "nev": "Midea Xtreme Save (fekete)",
       "alt": "Egyedi design, fekete színű Midea xtreme save 3,5kw. Alapszereléssel 275000ft."
     },
     {
       "kep": "/assets/img/akcio/808.png",
+      "nev": "Gree Comfort Pro",
       "alt": "Gree comfort pro 3,5kw. Hűtésre és fűtésre egyaránt alkalmas. Alapszereléssel 310000ft."
     },
     {
       "kep": "/assets/img/akcio/813.png",
+      "nev": "Gree G-Time",
       "alt": "Gree G-time. Fűtésre "
     },
     {
       "kep": "/assets/img/akcio/812.png",
+      "nev": "Nord Quantum",
       "alt": "Nord Quantum, fűtésre "
     },
     {
       "kep": "/assets/img/akcio/811-1.png",
+      "nev": "Azuri Aries",
       "alt": "Azuri Aries fűtés rásegítésre"
     },
     {
       "kep": "/assets/img/akcio/823.png",
+      "nev": "Ceklima Elite",
       "alt": "240000ft szerelve "
     },
     {
       "kep": "/assets/img/akcio/824.png",
+      "nev": "Vivax M Design",
       "alt": "245000ft szerelve"
     },
     {
       "kep": "/assets/img/akcio/868.png",
+      "nev": "Cooper & Hunter Daytona",
       "alt": "Fűtésre optimalizált készülék, ami minden évszakban gazdaságosan teljesíti igényeink!"
     },
     {
       "kep": "/assets/img/akcio/869.png",
+      "nev": "Cooper & Hunter Vital Plus",
       "alt": "Tökéletes választás fűtés kiegészítésre és hűtésre!"
     }
   ]
