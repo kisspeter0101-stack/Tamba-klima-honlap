@@ -189,12 +189,10 @@
         ((d && d.akciok) || []).forEach(function (a) {
           if (!a || !a.kep) return;
           var kulcs = a.kep.split("/").pop().replace(/\.[^.]+$/, "");
-          // a „Készülék neve” mező a mérvadó; régi bejegyzésnél a kép leírásának első szavaiból próbáljuk kitalálni
+          // Csak a „Készülék neve” mezővel rendelkező akció kerül a listába: a kép leírásából nem találgatunk,
+          // mert abból értelmetlen szöveg lehet. Név nélkül az akció a listában nem jelenik meg.
           var nev = String(a.nev || "").trim();
-          if (!nev) {
-            nev = String(a.alt || "").split(/\s+klíma|\s*[,.;–]|\s+\d/i)[0].trim();
-            if (!nev || /^\d/.test(nev)) { nev = kulcs; }
-          }
+          if (!nev) return;
           var o = document.createElement("option");
           o.value = kulcs; o.textContent = nev;
           akcioSelect.appendChild(o);
