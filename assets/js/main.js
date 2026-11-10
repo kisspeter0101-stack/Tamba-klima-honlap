@@ -407,7 +407,7 @@
 /* ---------- Névtelen látogatásmérés ----------
    A kisspeter.hu központi, süti nélküli számlálójába küld (nincs süti, IP-cím vagy személyes adat).
    Mér: oldalmegtekintés (és honnan jött a látogató), kattintás a telefonszámra, az e-mail címre és az ajánlatkérésre.
-   Az elküldött ajánlatkérések a koszonjuk.html megtekintéséből látszanak.
+   Az elküldött ajánlatkérések a koszonjuk.html megtekintéséből látszanak, a kitöltés lépései az ajanlatkeres.js-ből.
    Saját böngésző kizárása: egyszer nyisd meg a https://tambaklima.hu/?sajat=1 címet (vissza: ?sajat=0).
 --------------------------------------------------------------- */
 (function () {

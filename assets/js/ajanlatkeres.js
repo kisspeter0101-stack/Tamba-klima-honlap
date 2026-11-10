@@ -9,6 +9,14 @@
   var next = document.getElementById("wizNext");
   var cur = steps[0];
   var sending = false;
+
+  // Névtelen mérés (nincs benne a válaszok tartalma): hányan kezdték el, és melyik lépésig jutottak. Lépésenként egyszer.
+  var marked = {};
+  function mark(event) {
+    if (marked[event]) return;
+    marked[event] = true;
+    try { if (window.kpTrack) window.kpTrack(event); } catch (e) { /* a mérés hibája nem akadályozhatja a kitöltést */ }
+  }
   var err = document.createElement("p");
   err.className = "wiz__err"; err.setAttribute("role", "alert"); err.hidden = true;
   form.querySelector(".wiz__nav").before(err);
@@ -74,6 +82,7 @@
     var i = vis.indexOf(cur);
     if (i === vis.length - 1) { finish(); return; }
     cur = vis[i + 1]; apply();
+    mark("form_s" + (steps.indexOf(cur) + 1));
     form.scrollIntoView({ behavior: "smooth", block: "start" });
   }
   function prevStep() {
@@ -201,7 +210,7 @@
       .catch(function () { /* a lista nélkül is működik az űrlap */ });
   }
 
-  form.addEventListener("change", function () { err.hidden = true; apply(); });
+  form.addEventListener("change", function () { mark("form_start"); err.hidden = true; apply(); });
   form.addEventListener("keydown", function (ev) { if (ev.key === "Enter" && ev.target.tagName !== "TEXTAREA") { ev.preventDefault(); nextStep(); } });
   next.addEventListener("click", nextStep);
   back.addEventListener("click", prevStep);
