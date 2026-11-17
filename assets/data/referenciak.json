@@ -167,6 +167,18 @@
       "alt": "Polar beltéri egység barack színű falon, hálószobában",
       "felirat": "Beltéri egység – Polar",
       "foldal": false
+    },
+    {
+      "kep": "/assets/img/ref/ref-uzleti-1.jpg",
+      "alt": "Midea beltéri egység világos falon, üzlethelyiségben",
+      "felirat": "Beltéri egység – fodrászat",
+      "foldal": false
+    },
+    {
+      "kep": "/assets/img/ref/ref-uzleti-2.jpg",
+      "alt": "Midea kültéri egység konzolon, rendezett csőbekötéssel egy üzlet homlokzatán",
+      "felirat": "Kültéri egység – üzlethelyiség",
+      "foldal": false
     }
   ]
 }
